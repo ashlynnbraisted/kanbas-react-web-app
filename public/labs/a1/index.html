@@ -1,0 +1,207 @@
+<html>
+  <head>
+    <title>Lab 1</title>
+  </head>
+  <body>
+    <h1>Lab 1 HTML Examples</h1>
+    <h2>Heading Tags</h2>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    <h2>Paragraph Tag</h2>
+    <p>
+    This is a paragraph. We often separate a long set of sentences with vertical spaces to make the text easier to read. Browsers ignore vertical white spaces and render all the text as one single set of sentences. To force the browser to add vertical spacing, wrap the paragraphs you want to separate with the paragraph tag
+    </p>
+
+    <p>
+    This is the first paragraph. The paragraph tag is used to format vertical gaps between long pieces of text like this one.
+    </p>
+    <p>
+    This is the second paragraph. Even though there is a deliberate white gap between the paragraph above and this paragraph, by default browsers render them as one contiguous piece of text as shown here on the right.
+    </p>
+    <p>
+    This is the third paragraph. Wrap each paragraph with the paragraph tag to tell browsers to render the gaps.
+    </p>
+
+    <h2>List Tags</h2>
+    <h3>Ordered List Tag</h3>
+    How to make pancakes:
+    <ol>
+    <li>Mix dry ingredients.</li>
+    <li>Add wet ingredients.</li>
+    <li>Stir to combine.</li>
+    <li>Heat a skillet or griddle.</li>
+    <li>Pour batter onto the skillet.</li>
+    <li>Cook until bubbly on top.</li>
+    <li>Flip and cook the other side.</li>
+    <li>Serve and enjoy!</li>
+    </ol>
+    <h3>Unordered List Tag</h3>
+    My favorite books (in no particular order)
+    <ul>
+    <li>Dune</li>
+    <li>Lord of the Rings</li>
+    <li>Ender's Game</li>
+    <li>Red Mars</li>
+    <li>The Forever War</li>
+    </ul>
+
+    <h2>Table Tag</h2>
+    <table border="1" width="100%">
+    <thead>
+    <tr>
+        <th>Quiz</th>
+        <th>Topic</th>
+        <th>Date</th>
+        <th>Grade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Q1</td>
+        <td>HTML</td>
+        <td>2/3/21</td>
+        <td>85</td>
+    </tr>
+    <tr>
+        <td>Q2</td>
+        <td>CSS</td>
+        <td>2/10/21</td>
+        <td>90</td>
+    </tr>
+    <tr>
+        <td>Q3</td>
+        <td>JavaScript</td>
+        <td>2/17/21</td>
+        <td>95</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3">Average</td>
+        <td>90</td>
+    </tr>
+    </tfoot>
+    </table>
+
+    <h2>Image Tag</h2>
+
+    <h2>Form Tags</h2>
+    <h3>Text fields</h3>
+    <form id="text-fields">
+    <label for="text-fields-username">Username:</label>
+    <input id="text-fields-username" placeholder="jdoe"/><br/>
+    <label for="text-fields-password">Password:</label>
+    <input type="password" id="text-fields-password"
+            value="123@#$asd"/><br/>
+    <label for="text-fields-first-name">First name:</label>
+    <input type="text" id="text-fields-first-name"
+            title="John"/><br/>
+    <label for="text-fields-last-name">Last name:</label>
+    <input type="text" id="text-fields-last-name"
+            placeholder="Doe" value="Wonderland"/>
+    <!-- copy rest of form elements here -->
+    </form>
+
+    <h3>Text boxes</h3>
+    <form id="textarea">
+       <label>Biography:</label><br/>
+       <textarea cols="30" rows="10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+    </form>
+
+    <h3>Buttons</h3>
+    <button type="button">Click me!</button>
+
+    <h3>File upload</h3>
+    <input type="file"/>
+
+    <h3>Radio buttons</h3>
+
+    <label>Favorite movie genre:</label><br/>
+
+    <input type="radio" value="COMEDY"
+        name="radio-genre" id="radio-comedy"/>
+    <label for="radio-comedy">Comedy</label><br/>
+    <input type="radio" value="DRAMA"
+        name="radio-genre" id="radio-drama"/>
+    <label for="radio-drama">Drama</label><br/>
+    <input type="radio" value="SCIFI"
+        name="radio-genre" id="radio-scifi" checked/>
+    <label for="radio-scifi">Science Fiction</label><br/>
+    <input type="radio" value="FANTASY"
+        name="radio-genre" id="radio-fantasy"/>
+    <label for="radio-fantasy">Fantasy</label>
+
+    <h3>Checkboxes</h3>
+    <label>Favorite movie genre:</label>
+    <br/>
+    <input type="checkbox" value="COMEDY"
+        name="check-genre" id="chkbox-comedy" checked/>
+    <label for="chkbox-comedy">Comedy</label>    <br/>
+
+    <input type="checkbox" value="DRAMA"
+        name="check-genre" id="chkbox-drama"/>
+    <label for="chkbox-drama">Drama</label>    <br/>
+
+    <input type="checkbox" value="SCIFI"
+        name="check-genre" id="chkbox-scifi" checked/>
+    <label for="chkbox-scifi">Science Fiction</label> <br/>
+
+    <input type="checkbox" value="FANTASY"
+        name="check-genre" id="chkbox-fantasy"/>
+    <label for="chkbox-fantasy">Fantasy</label>
+
+    <h3>Dropdowns</h3>
+
+    <h4>Select one</h4>
+    <label for="select-one-genre"> Favorite movie genre: </label><br/>
+    <select id="select-one-genre">
+    <option value="COMEDY">Comedy</option>
+    <option value="DRAMA">Drama</option>
+    <option selected value="SCIFI">
+        Science Fiction</option>
+    <option value="FANTASY">Fantasy</option>
+    </select>
+
+    <h4>Select many</h4>
+    <label for="select-many-genre"> Favorite movie genres: </label><br/>
+    <select id="select-many-genre" multiple>
+    <option selected value="COMEDY">Comedy</option>
+    <option value="DRAMA">Drama</option>
+    <option selected value="SCIFI">
+        Science Fiction</option>
+    <option value="FANTASY">Fantasy</option>
+    </select>
+
+    <h3>Other HTML field types</h3>
+    <label for="text-fields-email"> Email: </label>
+    <input type="email"
+        placeholder="jdoe@somewhere.com"
+        id="text-fields-email"/><br/>
+    <label for="text-fields-salary-start"> Starting salary:
+    </label>
+    <input type="number"
+        id="text-fields-salary-start"
+        placeholder="1000"
+        value="100000"/><br/>
+    <label for="text-fields-rating"> Rating: </label>
+    <input type="range" id="text-fields-rating"
+        placeholder="Doe"
+        max="5"
+        value="4"/><br/>
+    <label for="text-fields-dob"> Date of birth: </label>
+    <input type="date"
+        id="text-fields-dob"
+        max="2023-01-23"
+        value="2000-01-21"/><br/>
+
+    <h2>Anchor Tag</h2>
+
+    Please
+    <a href="https://www.lipsum.com">click here</a>
+    to get dummy text<br/>
+
+    Checkout my <a href="other-page.html">other page</a>
+  </body>
+</html>
+
