@@ -1,0 +1,79 @@
+<html>
+    <head></head>
+    <body>
+        <select>
+            <option>Speed Grader</option>
+            <option>Edit</option>
+            <option>Duplicate</option>
+            <option>Delete</option>
+            <option>Move</option>
+            <option>Move to...</option>
+            <option>Send to...</option>
+            <option>Copy to...</option>
+            <option>Share to Commons</option>
+        </select>
+        <h2>Assignment Name</h2>
+        <input placeholder="A1 - ENV + HTML"/><br>
+        <br>
+        <textarea cols="30" rows="5">This is the assignment description</textarea><br>
+        <br>
+        <label for="points">Points:</label><br>
+        <input id="points" placeholder="100"/><br/>
+        <br>
+        <label for="group">Assignment Group:</label><br>
+        <select id="group">
+            <option>ASSIGNMENTS</option>
+        </select><br>
+        <br>
+        <label for="displayGrade">Display Grade as</label><br>
+        <select id="displayGrade">
+            <option>Percentage</option>
+        </select><br>
+        <br>
+        <label for="submission">Submission Type</label><br>
+        <select id="submission">
+            <option>Online</option>
+        </select><br>
+        <br>
+        <label for="check-entry">Online Entry Options</label><br>
+        <input type="checkbox" name="check-entry" id="chkbox-text" checked/>
+        <label for="chkbox-text">Text Entry</label><br/>
+
+        <input type="checkbox" name="check-entry" id="chkbox-url"/>
+        <label for="chkbox-url">Website URL</label><br/>
+
+        <input type="checkbox" name="check-entry" id="chkbox-media" checked/>
+        <label for="chkbox-media">Media Recordings</label><br/>
+
+        <input type="checkbox" name="check-entry" id="chkbox-annotation"/>
+        <label for="chkbox-annotation">Student Annotations</label><br/>
+
+        <input type="checkbox" name="check-entry" id="chkbox-file"/>
+        <label for="chkbox-file">File Uploads</label><br/>
+        <br>
+        Assign<br/>
+        <label for="assign">Assign To:</label><br>
+        <input id="assign" placeholder="Everyone"/><br/>
+        <br>
+        <label for="due">Due:</label><br>
+        <input type="date"
+            id="due"
+            max="2024-04-30"
+            value="2024-01-24"/><br/>
+        <br>
+        <label for="avail">Available From:</label><br>
+        <input type="date"
+            id="avail"
+            max="2024-04-30"
+            value="2024-01-21"/><br/>
+        <br>
+        <label for="until">Until:</label><br>
+        <input type="date"
+            id="until"
+            max="2024-04-30"
+            value="2024-01-29"/><br/>
+        <br>
+        <a href="/Kanbas/Courses/Assignments/screen.html"><button>Cancel</button></a>
+        <a href="/Kanbas/Courses/Assignments/screen.html"><button>Save</button></a>
+    </body>
+</html>
