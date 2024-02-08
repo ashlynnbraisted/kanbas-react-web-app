@@ -1,0 +1,93 @@
+.wd-modules {
+    border-radius: 0%;
+    margin: 5px;
+}
+
+.wd-modules a {
+    color: red;
+}
+
+.wd-modules .header {
+    display: inline;
+    margin-top: 10px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.wd-modules .header a {
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+.wd-modules .header i.hamburger {
+    color: red
+}
+
+.wd-modules > li {
+    background-color: whitesmoke;
+    border: 1px solid whitesmoke !important;
+    border-left: none !important;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.wd-modules > li > div {
+    border-left: 3px solid whitesmoke;
+    padding: 10px;
+}
+
+.wd-modules > li > div > i {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.wd-modules > li > ul {
+    border-left: 3px solid green;
+}
+
+.wd-modules > li > ul > li {
+    border-top: 1px solid lightgray !important;
+    border: none;
+}
+
+.wd-modules > li > ul > li > i {
+    padding-right: 10px;
+}
+
+.wd-modules > li > ul > ul > li > i {
+    padding-right: 40px;
+}
+
+.wd-modules .list-group {
+    border-radius: 0%;
+}
+
+.status {
+    width: 250px; 
+    padding-left:10px;
+    align-items: left;
+}
+
+.status button{
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.status button.publish{
+    background-color:green;
+    color: white;
+}
+.status button.publish > i{
+    color:white;  
+}
+
+.status .upcoming li {
+    list-style: none;
+}
+.status .red {
+    color: red
+}
+
+.status .todo li {
+    list-style: none;
+}

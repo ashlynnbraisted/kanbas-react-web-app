@@ -1,67 +1,72 @@
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" href="/Kanbas/styles.css" />
+        <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+        <link rel="stylesheet" href="/libs/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="/Kanbas/Navigation/index.css" />
+    </head>
     <body>
-        <table width="100%">
-            <tbody>
-                <tr>
-                    <td valign="top">
-                        <ul>
-                            <li><a href="/Kanbas/Account/Profile/screen.html">Account</a></li>
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="/Kanbas/Courses/Home/screen.html">Courses</a></li>
-                            <li><a href="#">Calendar</a></li>
-                            <li><a href="#">Inbox</a></li>
-                            <li><a href="#">History</a></li>
-                            <li><a href="#">Studio</a></li>
-                            <li><a href="#">Commons</a></li>
-                            <li><a href="#">Help</a></li>
-                        </ul>  
-                    </td>
-                    <td valign="top">
-                        <ul>
-                            <li><a href="#">Notifications</a></li>
-                            <li><a href="/Kanbas/Account/Profile/screen.html">Profile</a></li>
-                            <li><a href="#">Files</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="#">ePortfolios</a></li>
-                            <li><a href="#">Shared Content</a></li>
-                            <li><a href="#">The Hub</a></li>
-                            <li><a href="#">Qwickly Course Tools</a></li>
-                            <li><a href="#">Global Announcements</a></li>
-                        </ul>   
-                    </td>
-                    <td valign="top">
-                        <table>
-                            <thead>
-                                <text>Jose Annunziato's Profile</text>
-                                <hr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <h2>Jose Annunziato</h2>
-                                    </td>
-                                    <td>
-                                        <button>Edit Profile</button>
-                                    </td>
-                                </tr>  
-                                <tr>
-                                    <td>
-                                        <h3>Contact</h3>
-                                        <p>No registered services, you can add some on the <a href="#">settings</a> page</p>
-                                    
-                                        <h3>Biography</h3>
-                                        <p>Faculty, Software Engineer, AI, Space, and renewables enthusiast.</p>
-                                    
-                                        <h3>Links</h3>
-                                        <p><a href="#">Youtube</a></p>      
-                                    </td>
-                                </tr>                  
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="d-flex">
+            <div class="d-none d-md-block" style="width: 80px">
+                <ul class="wd-kanbas-navigation">
+                    <li><img src="/images/northeastern_logo.jpg" width="50px"/></li>
+                    <li class="wd-active"><a href="/Kanbas/Account/Profile/screen.html"><span><i class="fas fa-user"></i></span>Account</a></li>
+                    <li><a href="/Kanbas/Dashboard/screen.html"><i class="fa fa-tachometer-alt"></i>Dashboard</a></li>
+                    <li><a href="/Kanbas/Courses/Home/screen.html"><i class="fas fa-book"></i>Courses</a></li>
+                    <li><a href="#"><i class="fa fa-calendar-alt"></i>Calendar</a></li>
+                    <li><a href="#"><i class="fa fa-inbox"></i>Inbox</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i>History</a></li>
+                    <li><a href="#"><i class="fas fa-video"></i>Studio</a></li>
+                    <li><a href="#"><i class="fa fa-share-square"></i>Commons</a></li>
+                    <li><a href="#"><i class="fa fa-question-circle"></i>Help</a></li>
+                </ul>  
+            </div>
+            <div class="d-flex">
+                <div class="d-none d-md-block">   
+                    <ul>
+                        <li><a href="#">Notifications</a></li>
+                        <li><a href="/Kanbas/Account/Profile/screen.html">Profile</a></li>
+                        <li><a href="#">Files</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li><a href="#">ePortfolios</a></li>
+                        <li><a href="#">Shared Content</a></li>
+                        <li><a href="#">The Hub</a></li>
+                        <li><a href="#">Qwickly Course Tools</a></li>
+                        <li><a href="#">Global Announcements</a></li>
+                    </ul>      
+                </div>
+                <div class="flex-fill">
+                    <table>
+                        <thead>
+                            <text>Jose Annunziato's Profile</text>
+                            <hr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h2>Jose Annunziato</h2>
+                                </td>
+                                <td>
+                                    <button><a href=/Kanbas/Account/Profile/edit/screen.html>Edit Profile</a> </button>
+                                </td>
+                            </tr>  
+                            <tr>
+                                <td>
+                                    <h3>Contact</h3>
+                                    <p>No registered services, you can add some on the <a href="#">settings</a> page</p>
+                                
+                                    <h3>Biography</h3>
+                                    <p>Faculty, Software Engineer, AI, Space, and renewables enthusiast.</p>
+                                
+                                    <h3>Links</h3>
+                                    <p><a href="#">Youtube</a></p>      
+                                </td>
+                            </tr>                  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
