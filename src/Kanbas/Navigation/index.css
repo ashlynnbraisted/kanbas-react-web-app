@@ -1,0 +1,66 @@
+.wd-kanbas-navigation {
+    background-color: black;
+    list-style: none;
+    padding: 0px;  margin: 0px;
+    width: 80px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+.wd-kanbas-navigation li {
+    padding: 5px;     
+    margin-bottom: 10px;
+    font-size: 0.8em;  
+    text-align: center;
+}
+.wd-kanbas-navigation a {
+    color: white;
+    text-decoration: none;
+}
+
+.wd-kanbas-navigation a svg {
+    color: red;
+    margin-bottom: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.wd-kanbas-navigation a #acct {
+    color: white;
+}
+.wd-kanbas-navigation li.wd-active {
+    background-color: white;
+}
+.wd-kanbas-navigation li.wd-active a {
+    color: red;
+}
+
+.wd-kanbas-navigation li.wd-active a #acct {
+    color: red;
+}
+  
+.wd-kanbas-navigation-dropdown {
+    list-style: none;
+}
+.wd-kanbas-navigation-dropdown li {
+    padding: 5px;     
+    margin-bottom: 10px;
+}
+.wd-kanbas-navigation-dropdown a {
+    color: red;
+    text-decoration: none;
+}
+.wd-kanbas-navigation-dropdown a svg {
+    color: red;
+    font-size: 2em;
+    display: inline;
+    padding-right: 10px;
+}
+.wd-kanbas-navigation-dropdown a #user {
+    color: lightgray;
+}
+.wd-kanbas-navigation-dropdown a #close {
+    color: black;
+    font-size: 1em;
+}

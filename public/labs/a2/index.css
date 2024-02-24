@@ -192,13 +192,15 @@ p#id-selector-2 {
     font-size: 2em;
     font-weight: bolder;
 }
-.asd { background-color: red; color: white }
-#asd { background-color: red }
-.zxc { background-color: blue; color: white }
-#zxc { background-color: blue }
   
- 
- 
+.box {
+    border: 2px solid red;
+    padding: 10px;
+  }
+  
+  .box ul li {
+    background-color: yellow; 
+  }
   
  
   
