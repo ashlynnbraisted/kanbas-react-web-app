@@ -7,6 +7,12 @@
     color: red;
 }
 
+.wd-modules p {
+    font-size: 14px;
+    margin-left: 24px;
+    margin-bottom: 0px;
+}
+
 .wd-modules .header {
     display: inline;
     margin-top: 10px;

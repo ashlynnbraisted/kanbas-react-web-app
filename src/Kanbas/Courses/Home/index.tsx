@@ -34,7 +34,7 @@ function Home() {
                     <div className="d-flex justify-content-between">
                         <FaClock className="red"/>
                         <ul>
-                            <li><a href="#"> {assignmentList[0].title}</a> <br />
+                            <li><a href="#"> {(assignmentList.length > 0) ? assignmentList[0].title : ''}</a> <br />
                                 <span className="subtext">100 points - Sep 11</span></li>
                         </ul>
                         <i className="fa fa-close"></i><br/>

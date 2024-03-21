@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes, useLocation, useParams } from "react-router";
-import courses from "../Database/courses.json";
 import CourseNavigation from "./Navigation";
 import { Link } from "react-router-dom";
 import "./Modules/index.css";
@@ -10,7 +9,7 @@ import Assignments from "./Assignments";
 import NavigationDropdown from './NavigationDropdown';
 import CourseNavigationDropdown from "./CourseNavigationDropdown";
 
-function Courses() {
+function Courses({ courses }: { courses: any[]; }) {
   const { courseId } = useParams();
   const course = courses.find((c) => c._id === courseId);
   const courseNum = course?.number ?? '';
