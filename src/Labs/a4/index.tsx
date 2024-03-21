@@ -33,6 +33,7 @@ const Assignment4 = () => {
       <ArrayStateVariable />
       <ParentStateComponent />
       <ReduxExamples/>
+      <TodoForm />
     </>
   );
 };
