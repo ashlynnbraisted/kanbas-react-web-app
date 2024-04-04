@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaPlus } from "react-icons/fa";
 import { useParams } from "react-router";
@@ -8,7 +8,9 @@ import {
   deleteModule,
   updateModule,
   setModule,
+  setModules,
 } from "./reducer";
+import * as client from "./client";
 import { KanbasState } from "../../Store";
 
 function ModuleList() {
@@ -23,6 +25,27 @@ function ModuleList() {
   const toggleDropdown = () => {
       setIsDropdownOpen(!isDropdownOpen);
   };
+  useEffect(() => {
+    client.findModulesForCourse(courseId)
+      .then((modules) =>
+        dispatch(setModules(modules))
+    );
+  }, [courseId]);
+  const handleAddModule = () => {
+    client.createModule(courseId, module).then((module) => {
+      dispatch(addModule(module));
+    });
+  };
+  const handleDeleteModule = (moduleId: string) => {
+    client.deleteModule(moduleId).then((status) => {
+      dispatch(deleteModule(moduleId));
+    });
+  };
+  const handleUpdateModule = async () => {
+    const status = await client.updateModule(module);
+    dispatch(updateModule(module));
+  };
+  
   return (
     <div className="flex-container">
         <div className="d-flex justify-content-end gap-2">
@@ -56,8 +79,8 @@ function ModuleList() {
             onChange={(e) => dispatch(setModule({ ...module, name: e.target.value }))}/>
           <textarea className="form-control" value={module.description}
             onChange={(e) => dispatch(setModule({ ...module, description: e.target.value }))}/>
-          <button className="btn btn-success" onClick={() => dispatch(addModule({ ...module, course: courseId }))}>Add</button>
-          <button className="btn btn-light color-lightgray" onClick={() => dispatch(updateModule(module))}>Update</button>
+          <button className="btn btn-success" onClick={handleAddModule}>Add</button>
+          <button className="btn btn-light color-lightgray" onClick={handleUpdateModule}>Update</button>
         </div>
       </li>
       {moduleList
@@ -96,7 +119,7 @@ function ModuleList() {
                   Edit
                 </button>
                 <button className="btn btn-danger"
-                onClick={() => dispatch(deleteModule(module._id))}>
+                onClick={() => handleDeleteModule(module._id)}>
                 Delete
               </button>
             </div>
