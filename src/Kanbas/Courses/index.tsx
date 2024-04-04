@@ -13,8 +13,8 @@ import CourseNavigationDropdown from "./CourseNavigationDropdown";
 
 function Courses() {
   const { courseId } = useParams();
-  const { courseId } = useParams();
   const API_BASE = process.env.REACT_APP_API_BASE;
+  const COURSES_API = `${API_BASE}/api/courses`;
   const [course, setCourse] = useState<any>({ _id: "" });
   const findCourseById = async (courseId?: string) => {
     const response = await axios.get(
