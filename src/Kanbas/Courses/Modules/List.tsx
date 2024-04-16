@@ -99,7 +99,7 @@ function ModuleList() {
               </span>
               <p>{module.description}</p>
             </div>
-            {selectedModule._id === module._id && (
+            {selectedModule?._id === module._id && (
               <ul className="list-group">
                 {module.lessons?.map((lesson: any, index: number) => (
                   <li className="list-group-item" key={index}>
