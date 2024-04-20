@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import "./Modules/index.css";
 import { HiMiniBars3 } from "react-icons/hi2";
 import Modules from "./Modules";
+import Quizzes from "./Quizzes";
 import Home from "./Home";
 import Assignments from "./Assignments";
-import NavigationDropdown from './NavigationDropdown';
+import NavigationDropdown from "./NavigationDropdown";
 import CourseNavigationDropdown from "./CourseNavigationDropdown";
 
 function Courses() {
@@ -17,43 +18,47 @@ function Courses() {
   const COURSES_API = `${API_BASE}/api/courses`;
   const [course, setCourse] = useState<any>({ _id: "" });
   const findCourseById = async (courseId?: string) => {
-    const response = await axios.get(
-      `${COURSES_API}/${courseId}`
-    );
+    const response = await axios.get(`${COURSES_API}/${courseId}`);
     setCourse(response.data);
   };
   useEffect(() => {
     findCourseById(courseId);
   }, [courseId]);
 
-  const courseNum = course?.number ?? '';
+  const courseNum = course?.number ?? "";
   const { pathname } = useLocation();
-  const path = pathname.split('/').pop()?.replace('%20',' ') ?? '';
+  const path = pathname.split("/").pop()?.replace("%20", " ") ?? "";
 
   return (
     <div className="wd-modules container">
       <div className="header">
-        <br/>
-        <HiMiniBars3 className="hamburger d-none d-lg-inline"/>
-        <NavigationDropdown/>
-        <Link to={'Home'}> {courseNum}</Link> &gt; {path}
+        <br />
+        <HiMiniBars3 className="hamburger d-none d-lg-inline" />
+        <NavigationDropdown />
+        <Link to={"Home"}> {courseNum}</Link> &gt; {path}
         <div className="float-end">
-            <button className="btn btn-light"><i className="fas fa-binoculars pe-1"></i> Student View</button>
-            <CourseNavigationDropdown/>
+          <button className="btn btn-light">
+            <i className="fas fa-binoculars pe-1"></i> Student View
+          </button>
+          <CourseNavigationDropdown />
         </div>
         <hr />
       </div>
-      <div className="d-flex" style={{display: "inline-block"}}>
+      <div className="d-flex" style={{ display: "inline-block" }}>
         <CourseNavigation courseNum={courseNum} />
         <div style={{ flexGrow: 1 }}>
           <Routes>
             <Route path="/" element={<Navigate to="Home" />} />
-            <Route path="Home" element={<Home/>} />
-            <Route path="Modules" element={<Modules/>} />
+            <Route path="Home" element={<Home />} />
+            <Route path="Modules" element={<Modules />} />
             <Route path="Piazza" element={<h1>Piazza</h1>} />
             <Route path="Zoom Meetings" element={<h1>Zoom Meetings</h1>} />
-            <Route path="Assignments" element={<Assignments/>} />
-            <Route path="Assignments/:assignmentId" element={<h1>Assignment Editor</h1>} />
+            <Route path="Assignments" element={<Assignments />} />
+            <Route
+              path="Assignments/:assignmentId"
+              element={<h1>Assignment Editor</h1>}
+            />
+            <Route path="Quizzes" element={<Quizzes />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />
