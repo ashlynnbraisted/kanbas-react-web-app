@@ -12,7 +12,7 @@ function Dashboard(
     <div className="p-4">
       <h1>Dashboard</h1>
       <hr />
-      <h2>Published Courses (3)</h2>
+      <h2>Published Courses ({courses.length})</h2>
       <hr />
       <h5>Course</h5>
       <div className="col" style={{ width: "350px" }}>
