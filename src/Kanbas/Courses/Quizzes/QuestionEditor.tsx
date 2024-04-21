@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { createQuestion } from "./client";
+import { FaPlus, FaTrash } from "react-icons/fa";
 
 function QuestionEditor() {
     const initialQuestionState = {
@@ -26,6 +27,7 @@ function QuestionEditor() {
     };
 
     const handleDeletePossibleAnswer = (index: number) => {
+        setAnswers(answers.filter((_, answerIndex) => answerIndex !== index));
         console.log("delete", index);
         const updatedOptions = [...question.options];
         updatedOptions.splice(index, 1);
@@ -42,6 +44,20 @@ function QuestionEditor() {
     const handleUpdateQuestion = () => {
         createQuestion(question);
     };
+
+    const [answers, setAnswers] = useState(['']);
+
+    const handleAddAnswer = () => {
+      setAnswers([...answers, '']);
+    };
+
+    const handleAnswerChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+        const newAnswers = [...answers];
+        newAnswers[index] = event.target.value;
+        setAnswers(newAnswers);
+      };
+
+
 
     return (
         <div>
@@ -182,6 +198,34 @@ function QuestionEditor() {
                         </div>
                     </div>
                 )}
+                {question.questionType === "Fill In Blanks" && (
+     
+        
+                <div className="ms-auto">
+                {answers.map((answer, index) => (
+                    <><input
+                        key={index}
+                        type="text"
+                        style={{ width: "40vw" }}
+                        placeholder="Enter your answer here"
+                        value={answer}
+                        onChange={event => handleAnswerChange(index, event)} />
+                        <FaTrash
+                            className="fas fa-trash"
+                            style={{
+                                color: "grey",
+                                cursor: "pointer",
+                                marginLeft: "10px",
+                                marginTop: "10px",
+                            }}
+                            onClick={() => handleDeletePossibleAnswer(index)}
+                            /></>
+                ))}
+                <button  className="btn btn-danger me-2 wd-add-module" onClick={handleAddAnswer}> 
+               
+                <FaPlus className="fas fa-plus me-2" /> Add Answer</button>
+
+                </div>)}
                     <div>
                         <button
                             className="green-outline"
