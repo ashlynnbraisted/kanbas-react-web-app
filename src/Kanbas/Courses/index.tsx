@@ -11,6 +11,8 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import NavigationDropdown from "./NavigationDropdown";
 import CourseNavigationDropdown from "./CourseNavigationDropdown";
+import QuizDetails from "./Quizzes/Details";
+import QuizDetailsEditor from "./Quizzes/DetailsEditor";
 
 function Courses() {
   const { courseId } = useParams();
@@ -59,6 +61,11 @@ function Courses() {
               element={<h1>Assignment Editor</h1>}
             />
             <Route path="Quizzes" element={<Quizzes />} />
+            <Route path="Quizzes/details/:quizId" element={<QuizDetails />} />
+            <Route
+              path="Quizzes/editor/:quizId"
+              element={<QuizDetailsEditor />}
+            />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />

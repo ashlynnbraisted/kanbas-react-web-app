@@ -11,3 +11,14 @@ export const getAllQuizDetails = async () => {
   return response.data;
 };
 
+export const getQuizzesByCourseId = async (courseId: string) => {
+  console.log(courseId);
+  const response = await api.get( `${BASE_API}/api/quizDetails/${courseId}` );
+  return response.data;
+}
+
+export const getQuizById = async (quizId: string) => {
+  const response = await api.get( `${BASE_API}/api/quizDetails/quiz/${quizId}` );
+  return response.data[0];
+}
+

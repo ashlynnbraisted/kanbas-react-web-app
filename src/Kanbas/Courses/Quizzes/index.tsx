@@ -7,9 +7,11 @@ import * as client from "./client";
 const Quizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
 
+  const { courseId } = useParams();
+
   useEffect(() => {
     const fetchQuizzes = async () => {
-      const quizzes = await client.getAllQuizDetails();
+      const quizzes = await client.getQuizzesByCourseId(courseId!);
       console.log(quizzes);
       setQuizzes(quizzes);
     };
