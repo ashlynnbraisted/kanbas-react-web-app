@@ -1,9 +1,12 @@
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useParams } from "react-router-dom";
+import { getAllQuizByQuizId } from "./client";
 
 function QuestionEditor() {
     const { courseId, quizId } = useParams();
+    const questions = getAllQuizByQuizId(quizId);
+    console.log('questions', questions);
     return (
         <div>
             <div>

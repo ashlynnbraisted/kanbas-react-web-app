@@ -48,7 +48,11 @@ function QuestionEditor() {
             <div>
                 <input type="text" placeholder="Question Title" onChange={(e) =>
                     setQuestion({ ...question, title: e.target.value})}/>
-                <select>
+                <select
+                    onChange={(e) =>{e.target.value === 'True/False' ? 
+                    setQuestion({ ...question, questionType: e.target.value, answer: ['True'], options: ['False']})
+                    : setQuestion({ ...question, questionType: e.target.value, answer: [], options: []})} 
+                    }>
                     <option>Multiple Choice</option>
                     <option>True/False</option>
                     <option>Fill In Blanks</option>
@@ -85,71 +89,116 @@ function QuestionEditor() {
                 </div>
                 <textarea></textarea>
             </div>
-            <div>
-                <div>Answers:</div>
-                <div>
+            <div>Answers:</div>
+                {question.questionType === "Multiple Choice" && ( 
+                 <div>
                     <div>
-                        <FontAwesomeIcon icon={faArrowRight}/> Correct Answer  
-                        <input type="text" onChange={(e) =>
-                            setQuestion({ ...question, answer: [e.target.value] })}/>
-                    </div>
-                    <button
-                        className="green-outline"
-                        style={{ marginTop: "20px", marginBottom: "20px" }}>
-                        <FontAwesomeIcon icon={faEllipsis} />
-                    </button>
-                </div>
-            </div>
-            <div>
-                {question.options
-                .filter((option: any) => !question.answer.includes(option))
-                .map((value: string, index: number) => (
-                    <div key={index}>
                         <div>
-                            <FontAwesomeIcon icon={faArrowRight}/> Possible Answer  
-                            <input type="text" placeholder={`${value}`}
-                            onChange={(e) => handleEditPossibleAnswer(index, e.target.value)}/>
-                            <button
-                            onClick={() => handleDeletePossibleAnswer(index)}>
-                                <FontAwesomeIcon icon={faTrashCan} />
-                            </button>
+                            <FontAwesomeIcon icon={faArrowRight}/> Correct Answer  
+                            <input type="text" onChange={(e) =>
+                                setQuestion({ ...question, answer: [e.target.value] })}/>
                         </div>
+                        <button
+                            className="green-outline"
+                            style={{ marginTop: "20px", marginBottom: "20px" }}>
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </button>
+                    </div>
+                    <div>
+                        {question.options
+                        .filter((option: any) => !question.answer.includes(option))
+                        .map((value: string, index: number) => (
+                            <div key={index}>
+                                <div>
+                                    <FontAwesomeIcon icon={faArrowRight}/> Possible Answer  
+                                    <input type="text" placeholder={`${value}`}
+                                    onChange={(e) => handleEditPossibleAnswer(index, e.target.value)}/>
+                                    <button
+                                    onClick={() => handleDeletePossibleAnswer(index)}>
+                                        <FontAwesomeIcon icon={faTrashCan} />
+                                    </button>
+                                </div>
+                                <button
+                                    className="red-outline"
+                                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                                    <FontAwesomeIcon icon={faEllipsis} />
+                                </button>
+                        </div>))}
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <button
+                            style={{
+                            color: "red",
+                            border: "none",
+                            background: "none",
+                            padding: "0",
+                            }}
+                            onClick={handleAddPossibleAnswer}>
+                            <FontAwesomeIcon icon={faPlus}/> Add Another Answer
+                        </button>
+                    </div>
+                </div>)}
+                {question.questionType === "True/False" && ( 
+                    <div>
+                        <div>
+                            <div>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="True"
+                                        checked={question.answer === 'True'}
+                                        onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['False'] })}
+                                    />
+                                    True
+                                </label>
+                            </div>
+                            <div>
+                                <button
+                                    className="green-outline"
+                                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                                    <FontAwesomeIcon icon={faEllipsis} />
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="False"
+                                        checked={question.answer === 'False'}
+                                        onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['True']})}
+                                    />
+                                    False
+                                </label>
+                            </div>
+                            <div>
+                                <button
+                                    className="green-outline"
+                                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                                    <FontAwesomeIcon icon={faEllipsis} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                    <div>
+                        <button
+                            className="green-outline"
+                            style={{ marginTop: "20px", marginBottom: "20px" }}>
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </button>
                         <button
                             className="red-outline"
                             style={{ marginTop: "20px", marginBottom: "20px" }}>
                             <FontAwesomeIcon icon={faEllipsis} />
                         </button>
-                </div>))}
-            </div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <button
-                    style={{
-                    color: "red",
-                    border: "none",
-                    background: "none",
-                    padding: "0",
-                    }}
-                    onClick={handleAddPossibleAnswer}>
-                    <FontAwesomeIcon icon={faPlus}/> Add Another Answer
-                </button>
-            </div>
-            <div>
-                <button
-                    className="green-outline"
-                    style={{ marginTop: "20px", marginBottom: "20px" }}>
-                    <FontAwesomeIcon icon={faEllipsis} />
-                </button>
-                <button
-                    className="red-outline"
-                    style={{ marginTop: "20px", marginBottom: "20px" }}>
-                    <FontAwesomeIcon icon={faEllipsis} />
-                </button>
-                <button
-                    className="blue-outline"
-                    style={{ marginTop: "20px", marginBottom: "20px" }}>
-                    <FontAwesomeIcon icon={faEllipsis} />
-                </button>
-            </div>
+                        <button
+                            className="blue-outline"
+                            style={{ marginTop: "20px", marginBottom: "20px" }}>
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </button>
+                    </div>
             <div>
                 <Link
                   to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`}>

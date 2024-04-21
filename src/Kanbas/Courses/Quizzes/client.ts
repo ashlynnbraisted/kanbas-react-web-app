@@ -27,3 +27,13 @@ export const updateQuestion = async (question : any) => {
 
   return response.data;
 };
+
+export const findQuestionById = async (questionId : string) => {
+  const response = await axios.get(`${QUESTIONS_API}/${questionId}`);
+  return response.data;
+}
+
+export const getAllQuizByQuizId = async (quizId : any) => {
+  const response = await axios.get(`${QUESTIONS_API}/${quizId}`);
+  return response.data;
+}
