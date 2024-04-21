@@ -1,0 +1,163 @@
+import { faAngleDown, faArrowRight, faBold, faDroplet, faEllipsis, faEllipsisVertical, faHighlighter, faItalic, faPlus, faTrashCan, faUnderline } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { createQuestion } from "./client";
+
+function QuestionEditor() {
+    const initialQuestionState = {
+        _id: "1",
+        quizId: "1",
+        questionType: "Multiple Choice",
+        title: "Question Title",
+        points: 1,
+        question: "Enter Question Text Here",
+        answer: [],
+        options: [],
+    }
+
+    const { courseId, quizId } = useParams();
+    
+    const [question, setQuestion] = useState<any | null>(initialQuestionState);
+
+    const handleAddPossibleAnswer = () => {
+        const newList = [...question.options, "New Answer"];
+        setQuestion({ ...question, options: newList });
+    };
+
+    const handleDeletePossibleAnswer = (index: number) => {
+        console.log("delete", index);
+        const updatedOptions = [...question.options];
+        updatedOptions.splice(index, 1);
+        setQuestion({ ...question, options: updatedOptions });
+    };
+
+    const handleEditPossibleAnswer = (index: number, possibleAnswer: String) => {
+        console.log("edit", index);
+        const updatedOptions = [...question.options];
+        updatedOptions[index] = possibleAnswer;
+        setQuestion({ ...question, options: updatedOptions });    
+    }
+
+    const handleUpdateQuestion = () => {
+        createQuestion(question);
+    };
+
+    return (
+        <div>
+            <div>
+                <input type="text" placeholder="Question Title" onChange={(e) =>
+                    setQuestion({ ...question, title: e.target.value})}/>
+                <select>
+                    <option>Multiple Choice</option>
+                    <option>True/False</option>
+                    <option>Fill In Blanks</option>
+                </select>
+                <input type="text" placeholder="pts" onChange={(e) =>
+                    setQuestion({ ...question, points: e.target.value})}/>
+            </div>
+            <hr/>
+            <div>
+                <div>Enter your question and multiple answers, then select the one correct answer.</div>
+                <div>Question:</div>
+                <div style={{ display: "flex" }}>
+                    <span style={{ display: "inline-block", marginBottom: "10px" }}>
+                    Edit View Insert Format Tools Table
+                    </span>
+                </div>
+                <div style={{ display: "flex" }}>
+                    <span style={{ display: "inline-block" }}>
+                    12pt
+                    <FontAwesomeIcon icon={faAngleDown} />
+                    Paragraph
+                    <FontAwesomeIcon icon={faAngleDown} />
+                    |
+                    <FontAwesomeIcon icon={faItalic} />
+                    <FontAwesomeIcon icon={faBold} />
+                    <FontAwesomeIcon icon={faUnderline} />
+                    <FontAwesomeIcon icon={faDroplet} />
+                    <FontAwesomeIcon icon={faAngleDown} />
+                    <FontAwesomeIcon icon={faHighlighter} />
+                    <FontAwesomeIcon icon={faAngleDown} />
+                    |
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                    </span>
+                </div>
+                <textarea></textarea>
+            </div>
+            <div>
+                <div>Answers:</div>
+                <div>
+                    <div>
+                        <FontAwesomeIcon icon={faArrowRight}/> Correct Answer  
+                        <input type="text" onChange={(e) =>
+                            setQuestion({ ...question, answer: [e.target.value] })}/>
+                    </div>
+                    <button
+                        className="green-outline"
+                        style={{ marginTop: "20px", marginBottom: "20px" }}>
+                        <FontAwesomeIcon icon={faEllipsis} />
+                    </button>
+                </div>
+            </div>
+            <div>
+                {question.options
+                .filter((option: any) => !question.answer.includes(option))
+                .map((value: string, index: number) => (
+                    <div key={index}>
+                        <div>
+                            <FontAwesomeIcon icon={faArrowRight}/> Possible Answer  
+                            <input type="text" placeholder={`${value}`}
+                            onChange={(e) => handleEditPossibleAnswer(index, e.target.value)}/>
+                            <button
+                            onClick={() => handleDeletePossibleAnswer(index)}>
+                                <FontAwesomeIcon icon={faTrashCan} />
+                            </button>
+                        </div>
+                        <button
+                            className="red-outline"
+                            style={{ marginTop: "20px", marginBottom: "20px" }}>
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </button>
+                </div>))}
+            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <button
+                    style={{
+                    color: "red",
+                    border: "none",
+                    background: "none",
+                    padding: "0",
+                    }}
+                    onClick={handleAddPossibleAnswer}>
+                    <FontAwesomeIcon icon={faPlus}/> Add Another Answer
+                </button>
+            </div>
+            <div>
+                <button
+                    className="green-outline"
+                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                    <FontAwesomeIcon icon={faEllipsis} />
+                </button>
+                <button
+                    className="red-outline"
+                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                    <FontAwesomeIcon icon={faEllipsis} />
+                </button>
+                <button
+                    className="blue-outline"
+                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                    <FontAwesomeIcon icon={faEllipsis} />
+                </button>
+            </div>
+            <div>
+                <Link
+                  to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`}>
+                Cancel </Link>
+                <button className="btn btn-light" onClick={handleUpdateQuestion}> Update Question</button>
+            </div>
+        </div>
+    )
+}
+
+export default QuestionEditor;
