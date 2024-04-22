@@ -35,6 +35,7 @@ const QuizDetails = () => {
         </button>
       </div>
       <h1>Quiz Details</h1>
+      <p>Quiz Title: {quiz.title}</p>
       <p>Quiz Type: {quiz.quizType}</p>
       <p>points: {quiz.points}</p>
       <p>Assignment Group: {quiz.assignmentGroup}</p>

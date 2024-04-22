@@ -22,3 +22,7 @@ export const getQuizById = async (quizId: string) => {
   return response.data[0];
 }
 
+export const updateQuiz = async(quiz_id: String, quiz: any) => {
+  const response = await api.post(`${BASE_API}/api/quizDetails/${quiz_id}`, quiz);
+  return response;
+}

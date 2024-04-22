@@ -64,6 +64,7 @@ const Quizzes = () => {
                 {getAvailability(quiz) === "Available"
                   ? "OPEN SYMBOL"
                   : "CLOSED SYMBOL"}
+                {quiz.published ? "PUBLISHED" : "NOT PUBLISHED"}
                 <button
                   onClick={() => {
                     console.log("HGIHI");
