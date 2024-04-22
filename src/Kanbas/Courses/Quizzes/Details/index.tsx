@@ -12,6 +12,10 @@ const QuizDetails = () => {
     navigate(`/Kanbas/Courses/${courseId}/Quizzes/editor/${quizId}`);
   };
 
+  const gotoPreview = () => {
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes/preview/${quizId}`);
+  }
+
   useEffect(() => {
     const getQuiz = async () => {
       const quiz = await client.getQuizById(quizId!);
@@ -41,7 +45,7 @@ const QuizDetails = () => {
           {" "}
           {quiz.published ? "Unpublish" : "Publish"}{" "}
         </button>
-        <button className="btn btn-light color-lightgray"> Preview </button>
+        <button className="btn btn-light color-lightgray" onClick={() => gotoPreview()}> Preview </button>
         <button
           className="btn btn-light color-lightgray"
           onClick={() => gotoEdit()}
