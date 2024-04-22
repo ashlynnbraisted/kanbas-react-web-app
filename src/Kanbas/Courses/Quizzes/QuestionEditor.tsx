@@ -93,7 +93,7 @@ function QuestionEditor() {
                     }>
                     <option>Multiple Choice</option>
                     <option>True/False</option>
-                    <option>Fill In Blanks</option>
+                    <option>Fill in the Blank</option>
                 </select>
                 <input type="text" placeholder="pts" onChange={(e) =>
                     setQuestion({ ...question, points: e.target.value})}/>
@@ -221,34 +221,99 @@ function QuestionEditor() {
                         </div>
                     </div>
                 )}
-                {question.questionType === "Fill In Blanks" && (
-     
-        
-                <div className="ms-auto">
-                {answers.map((answer, index) => (
-                    <><input
-                        key={index}
-                        type="text"
-                        style={{ width: "40vw" }}
-                        placeholder="Enter your answer here"
-                        value={answer}
-                        onChange={event => handleAnswerChange(index, event)} />
-                        <FaTrash
-                            className="fas fa-trash"
-                            style={{
-                                color: "grey",
-                                cursor: "pointer",
-                                marginLeft: "10px",
-                                marginTop: "10px",
-                            }}
-                            onClick={() => handleDeletePossibleAnswer(index)}
-                            /></>
-                ))}
-                <button  className="btn btn-danger me-2 wd-add-module" onClick={handleAddAnswer}> 
-               
-                <FaPlus className="fas fa-plus me-2" /> Add Answer</button>
-
-                </div>)}
+                {question.questionType === "True/False" && ( 
+                    <div>
+                        <div>
+                            <div>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="True"
+                                        checked={question.answer === 'True'}
+                                        onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['False'] })}
+                                    />
+                                    True
+                                </label>
+                            </div>
+                            <div>
+                                <button
+                                    className="green-outline"
+                                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                                    <FontAwesomeIcon icon={faEllipsis} />
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value="False"
+                                        checked={question.answer === 'False'}
+                                        onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['True']})}
+                                    />
+                                    False
+                                </label>
+                            </div>
+                            <div>
+                                <button
+                                    className="green-outline"
+                                    style={{ marginTop: "20px", marginBottom: "20px" }}>
+                                    <FontAwesomeIcon icon={faEllipsis} />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {question.questionType === "Fill in the Blank" && (
+    <div>
+        <div>
+            <div>
+                <FontAwesomeIcon icon={faArrowRight}/> Correct Answer  
+                <input type="text" onChange={(e) =>
+                    setQuestion({ ...question, answer: [e.target.value] })}/>
+            </div>
+            <button
+                className="green-outline"
+                style={{ marginTop: "20px", marginBottom: "20px" }}>
+                <FontAwesomeIcon icon={faEllipsis} />
+            </button>
+        </div>
+        <div>
+            {question.options
+            .filter((option: any) => !question.answer.includes(option))
+            .map((value: string, index: number) => (
+                <div key={index}>
+                    <div>
+                        <FontAwesomeIcon icon={faArrowRight}/> Possible Answer  
+                        <input type="text" placeholder={`${value}`}
+                        onChange={(e) => handleEditPossibleAnswer(index, e.target.value)}/>
+                        <button
+                        onClick={() => handleDeletePossibleAnswer(index)}>
+                            <FontAwesomeIcon icon={faTrashCan} />
+                        </button>
+                    </div>
+                    <button
+                        className="red-outline"
+                        style={{ marginTop: "20px", marginBottom: "20px" }}>
+                        <FontAwesomeIcon icon={faEllipsis} />
+                    </button>
+            </div>))}
+        </div>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button
+                style={{
+                color: "red",
+                border: "none",
+                background: "none",
+                padding: "0",
+                }}
+                onClick={handleAddPossibleAnswer}>
+                <FontAwesomeIcon icon={faPlus}/> Add Another Answer
+            </button>
+        </div>
+    </div>
+)}
                     <div>
                         <button
                             className="green-outline"
