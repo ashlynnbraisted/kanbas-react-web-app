@@ -148,7 +148,7 @@ const Quizzes = () => {
             )}
           </ul>
         </li>
-        {quizzes.length == 0 && <p>Use the + Quiz button to create a quiz!</p>}
+        {quizzes.length === 0 && <p>Use the + Quiz button to create a quiz!</p>}
       </ul>
     </>
   );
