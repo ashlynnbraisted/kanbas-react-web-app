@@ -24,7 +24,7 @@ function QuestionEditor() {
     const [edit, setEdit] = useState("New Question");
 
     useEffect(() => {
-        if (questionId) {
+        if (questionId !== undefined && questionId !== "0") {
             const fetchQuestion = async () => {
                 const result = await findQuestionById(questionId);
                 setQuestion(result);
