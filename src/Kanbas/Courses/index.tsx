@@ -13,6 +13,7 @@ import NavigationDropdown from "./NavigationDropdown";
 import CourseNavigationDropdown from "./CourseNavigationDropdown";
 import QuizDetails from "./Quizzes/Details";
 import QuizDetailsEditor from "./Quizzes/DetailsEditor";
+import Preview from "./Quizzes/Preview";
 
 function Courses() {
   const { courseId } = useParams();
@@ -66,6 +67,7 @@ function Courses() {
               path="Quizzes/editor/:quizId"
               element={<QuizDetailsEditor />}
             />
+            <Route path="Quizzes/preview/:quizId" element={<Preview />} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />
