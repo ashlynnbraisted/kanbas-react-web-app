@@ -22,9 +22,9 @@ const QuizDetails = () => {
 
   const togglePublish = async () => {
     if (quiz.published) {
-      await client.unpublishQuiz(quizId!);
+      await client.unpublishQuiz(quiz._id);
     } else {
-      await client.publishQuiz(quizId!);
+      await client.publishQuiz(quiz._id);
     }
     // Refetch quiz data to update state
     const updatedQuiz = await client.getQuizById(quizId!);

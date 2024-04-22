@@ -102,7 +102,6 @@ const Quizzes = () => {
   return (
     <>
       <div className="d-flex justify-content-end gap-2">
-        <input placeholder="Search for Quizzes" />
         <button className="btn btn-light color-lightgray" onClick={addQuiz}>
           {" "}
           + Quiz{" "}
@@ -119,22 +118,23 @@ const Quizzes = () => {
             </span>
           </div>
           <ul className="list-group">
-            {quizzes.map((quiz: any, index: number) => (
-              <li key={quiz.id} className="list-group-item">
-                {quiz.title} {getAvailability(quiz)}
-                {"Due: " + quiz.untilDate}
-                {quiz.points} {quiz.numberQuestions + " questions"}{" "}
-                {quiz.published ? "OPEN SYMBOL" : "CLOSED SYMBOL"}
-                <button
-                  onClick={() => showMenu(index, quiz.id, quiz._id)}
-                  ref={(el) => {
-                    buttonRefs.current[index] = el;
-                  }}
-                >
-                  <FaEllipsisV className="ms-2" />
-                </button>
-              </li>
-            ))}
+            {quizzes.length > 0 &&
+              quizzes.map((quiz: any, index: number) => (
+                <li key={quiz.id} className="list-group-item">
+                  {quiz.title} {getAvailability(quiz)}
+                  {"Due: " + quiz.untilDate}
+                  {quiz.points} {quiz.numberQuestions + " questions"}{" "}
+                  {quiz.published ? "OPEN SYMBOL" : "CLOSED SYMBOL"}
+                  <button
+                    onClick={() => showMenu(index, quiz.id, quiz._id)}
+                    ref={(el) => {
+                      buttonRefs.current[index] = el;
+                    }}
+                  >
+                    <FaEllipsisV className="ms-2" />
+                  </button>
+                </li>
+              ))}
             {contextMenuVisible && (
               <div ref={containerRef}>
                 <ContextMenu
@@ -148,6 +148,7 @@ const Quizzes = () => {
             )}
           </ul>
         </li>
+        {quizzes.length == 0 && <p>Use the + Quiz button to create a quiz!</p>}
       </ul>
     </>
   );
