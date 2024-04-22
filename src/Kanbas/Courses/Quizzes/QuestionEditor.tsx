@@ -1,14 +1,16 @@
 import { faAngleDown, faArrowRight, faBold, faDroplet, faEllipsis, faEllipsisVertical, faHighlighter, faItalic, faPlus, faTrashCan, faUnderline } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { createQuestion } from "./client";
+import { createQuestion, findQuestionById, updateQuestion } from "./client";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
 function QuestionEditor() {
+    const { courseId, quizId, questionId } = useParams();
+    
     const initialQuestionState = {
         _id: "1",
-        quizId: "1",
+        quizId: `${quizId}`,
         questionType: "Multiple Choice",
         title: "Question Title",
         points: 1,
@@ -16,10 +18,23 @@ function QuestionEditor() {
         answer: [],
         options: [],
     }
-
-    const { courseId, quizId } = useParams();
-    
     const [question, setQuestion] = useState<any | null>(initialQuestionState);
+    const [edit, setEdit] = useState("New Question");
+
+    useEffect(() => {
+        if (questionId) {
+            const fetchQuestion = async () => {
+                const result = await findQuestionById(questionId);
+                setQuestion(result);
+                setEdit("Edit Question");
+                console.log("result", result);
+                console.log("edit", edit);
+            };
+            fetchQuestion();
+        }
+    }, []);
+
+    console.log("question", question);
 
     const handleAddPossibleAnswer = () => {
         const newList = [...question.options, "New Answer"];
@@ -42,7 +57,12 @@ function QuestionEditor() {
     }
 
     const handleUpdateQuestion = () => {
-        createQuestion(question);
+        if (edit === "Edit Question") {
+            updateQuestion(question);
+        }
+        else {
+            createQuestion(question);
+        }
     };
 
     const [answers, setAnswers] = useState(['']);
@@ -60,6 +80,7 @@ function QuestionEditor() {
 
 
     return (
+        
         <div>
             <div>
                 <input type="text" placeholder="Question Title" onChange={(e) =>
@@ -103,7 +124,8 @@ function QuestionEditor() {
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                     </span>
                 </div>
-                <textarea></textarea>
+                <textarea onChange={(e) =>
+                    setQuestion({ ...question, question: e.target.value})}></textarea>
             </div>
             <div>Answers:</div>
                 {question.questionType === "Multiple Choice" && ( 
@@ -247,7 +269,9 @@ function QuestionEditor() {
                 <Link
                   to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`}>
                 Cancel </Link>
-                <button className="btn btn-light" onClick={handleUpdateQuestion}> Update Question</button>
+                <Link
+                  to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`}>
+                <button className="btn btn-light" onClick={handleUpdateQuestion}> Update Question</button> </Link>
             </div>
         </div>
     )

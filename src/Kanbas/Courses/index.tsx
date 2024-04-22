@@ -63,7 +63,7 @@ function Courses() {
             />
             <Route path="Quizzes" element={<Quizzes />} />
             <Route path="Quizzes/:quizId" element={<QuizEditor/>} />
-            <Route path="Quizzes/Question/:quizId" element={<QuestionEditor/>} />
+            <Route path="Quizzes/Question/:quizId/:questionId" element={<QuestionEditor/>} />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="People" element={<h1>People</h1>} />
             <Route path="Panopto Video" element={<h1>Panopto Video</h1>} />

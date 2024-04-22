@@ -24,12 +24,12 @@ export const createQuestion = async (question : any) => {
 export const updateQuestion = async (question : any) => {
   const response = await axios.
     put(`${QUESTIONS_API}/${question._id}`, question);
-
   return response.data;
 };
 
 export const findQuestionById = async (questionId : string) => {
-  const response = await axios.get(`${QUESTIONS_API}/${questionId}`);
+  const response = await axios.get(`${QUESTIONS_API}/id/${questionId}`);
+  console.log('data', response.data);
   return response.data;
 }
 
