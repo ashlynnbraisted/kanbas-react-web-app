@@ -67,7 +67,7 @@ function Courses() {
             <Route path="Syllabus" element={<h1>Syllabus</h1>} />
             <Route path="Settings" element={<h1>Settings</h1>} />
           </Routes>
-        </div>
+        </div> 
       </div>
     </div>
   );
