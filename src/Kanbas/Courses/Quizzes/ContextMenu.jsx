@@ -22,6 +22,11 @@ const ContextMenu = (props) => {
     window.location.reload();
   };
 
+  const unpublishQuiz = async () => {
+    const response = await client.unpublishQuiz(quiz_Id);
+    window.location.reload();
+  }
+
   return (
     <div style={{ position: "absolute", left: `${xPos}px`, top: `${yPos}px` }}>
       <button onClick={() => gotoEdit()}>Edit</button>

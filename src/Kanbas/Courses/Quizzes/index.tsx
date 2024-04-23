@@ -121,7 +121,8 @@ const Quizzes = () => {
             {quizzes.length > 0 &&
               quizzes.map((quiz: any, index: number) => (
                 <li key={quiz.id} className="list-group-item">
-                  {quiz.title} {getAvailability(quiz)}
+                  
+                  <Link to={`/Kanbas/Courses/${courseId}/Quizzes/details/${quiz.id}`}>{quiz.title}</Link> {getAvailability(quiz)}
                   {"Due: " + quiz.untilDate}
                   {quiz.points} {quiz.numberQuestions + " questions"}{" "}
                   {quiz.published ? "OPEN SYMBOL" : "CLOSED SYMBOL"}

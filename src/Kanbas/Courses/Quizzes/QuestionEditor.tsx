@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { createQuestion, findQuestionById, updateQuestion } from "./client";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
+
 function QuestionEditor() {
     const { courseId, quizId, questionId } = useParams();
 
@@ -15,13 +16,13 @@ function QuestionEditor() {
         title: "Question Title",
         points: 1,
         question: "Enter Question Text Here",
-        answer: [],
+        answer: ["Answer"],
         options: [],
     }
-
     
     const [question, setQuestion] = useState<any | null>(initialQuestionState);
     const [edit, setEdit] = useState("New Question");
+
 
     useEffect(() => {
         if (questionId !== undefined && questionId !== "0") {
@@ -84,18 +85,19 @@ function QuestionEditor() {
     return (
         <div>
             <div>
-                <input type="text" placeholder="Question Title" onChange={(e) =>
+                <input type="text" value={`${question.title}`} onChange={(e) =>
                     setQuestion({ ...question, title: e.target.value})}/>
                 <select
+                    value={`${question.questionType}`}
                     onChange={(e) =>{e.target.value === 'True/False' ? 
                     setQuestion({ ...question, questionType: e.target.value, answer: ['True'], options: ['False']})
-                    : setQuestion({ ...question, questionType: e.target.value, answer: [], options: []})} 
+                    : setQuestion({ ...question, questionType: e.target.value, answer: ['Answer'], options: []})} 
                     }>
                     <option>Multiple Choice</option>
                     <option>True/False</option>
                     <option>Fill in the Blank</option>
                 </select>
-                <input type="text" placeholder="pts" onChange={(e) =>
+                <input type="text"value={`${question.points}`} onChange={(e) =>
                     setQuestion({ ...question, points: e.target.value})}/>
             </div>
             <hr/>
@@ -125,7 +127,7 @@ function QuestionEditor() {
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                     </span>
                 </div>
-                <textarea onChange={(e) =>
+                <textarea value={`${question.question}`} onChange={(e) =>
                     setQuestion({ ...question, question: e.target.value})}></textarea>
             </div>
             <div>Answers:</div>
@@ -134,7 +136,7 @@ function QuestionEditor() {
                     <div>
                         <div>
                             <FontAwesomeIcon icon={faArrowRight}/> Correct Answer  
-                            <input type="text" onChange={(e) =>
+                            <input type="text" value={`${question.answer[0]}`} onChange={(e) =>
                                 setQuestion({ ...question, answer: [e.target.value] })}/>
                         </div>
                         <button
@@ -150,7 +152,7 @@ function QuestionEditor() {
                             <div key={index}>
                                 <div>
                                     <FontAwesomeIcon icon={faArrowRight}/> Possible Answer  
-                                    <input type="text" placeholder={`${value}`}
+                                    <input type="text" value={`${value}`}
                                     onChange={(e) => handleEditPossibleAnswer(index, e.target.value)}/>
                                     <button
                                     onClick={() => handleDeletePossibleAnswer(index)}>
@@ -185,7 +187,7 @@ function QuestionEditor() {
                                     <input
                                         type="radio"
                                         value="True"
-                                        checked={question.answer === 'True'}
+                                        checked={question.answer[0] === 'True'}
                                         onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['False'] })}
                                     />
                                     True
@@ -205,51 +207,7 @@ function QuestionEditor() {
                                     <input
                                         type="radio"
                                         value="False"
-                                        checked={question.answer === 'False'}
-                                        onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['True']})}
-                                    />
-                                    False
-                                </label>
-                            </div>
-                            <div>
-                                <button
-                                    className="green-outline"
-                                    style={{ marginTop: "20px", marginBottom: "20px" }}>
-                                    <FontAwesomeIcon icon={faEllipsis} />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                )}
-                {question.questionType === "True/False" && ( 
-                    <div>
-                        <div>
-                            <div>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        value="True"
-                                        checked={question.answer === 'True'}
-                                        onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['False'] })}
-                                    />
-                                    True
-                                </label>
-                            </div>
-                            <div>
-                                <button
-                                    className="green-outline"
-                                    style={{ marginTop: "20px", marginBottom: "20px" }}>
-                                    <FontAwesomeIcon icon={faEllipsis} />
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                <label>
-                                    <input
-                                        type="radio"
-                                        value="False"
-                                        checked={question.answer === 'False'}
+                                        checked={question.answer[0] === 'False'}
                                         onChange={(e) => setQuestion({ ...question, answer: e.target.value, options: ['True']})}
                                     />
                                     False
@@ -270,7 +228,7 @@ function QuestionEditor() {
         <div>
             <div>
                 <FontAwesomeIcon icon={faArrowRight}/> Correct Answer  
-                <input type="text" onChange={(e) =>
+                <input type="text" value={`${question.answer[0]}`} onChange={(e) =>
                     setQuestion({ ...question, answer: [e.target.value] })}/>
             </div>
             <button
@@ -286,7 +244,7 @@ function QuestionEditor() {
                 <div key={index}>
                     <div>
                         <FontAwesomeIcon icon={faArrowRight}/> Possible Answer  
-                        <input type="text" placeholder={`${value}`}
+                        <input type="text" value={`${value}`}
                         onChange={(e) => handleEditPossibleAnswer(index, e.target.value)}/>
                         <button
                         onClick={() => handleDeletePossibleAnswer(index)}>
@@ -333,10 +291,10 @@ function QuestionEditor() {
                     </div>
             <div>
                 <Link
-                  to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`}>
+                  to={`/Kanbas/Courses/${courseId}/Quizzes/editor/${quizId}`}>
                 Cancel </Link>
                 <Link
-                  to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`}>
+                  to={`/Kanbas/Courses/${courseId}/Quizzes/editor/${quizId}`}>
                 <button className="btn btn-light" onClick={handleUpdateQuestion}> Update Question</button> </Link>
             </div>
         </div>

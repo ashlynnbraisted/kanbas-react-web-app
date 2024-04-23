@@ -1,13 +1,46 @@
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { getAllQuizByQuizId } from "./client";
 import { useEffect, useState } from "react";
+import * as client from "./client";
+
 
 
 function QuestionEditor() {
     const { courseId, quizId } = useParams();
     const [questions, setQuestions] = useState([]);
+    const [quiz, setQuiz] = useState<any>({});
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const getQuiz = async () => {
+          const quiz = await client.getQuizById(quizId!);
+          quiz.dueDate = quiz.dueDate.split("T")[0];
+          quiz.availableDate = quiz.availableDate.split("T")[0];
+          quiz.untilDate = quiz.untilDate.split("T")[0];
+          setQuiz(quiz);
+        };
+        getQuiz();
+      }, []);
+
+      const save = () => {
+        const response = client.updateQuiz(quiz._id, quiz);
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/details/${quizId}`);
+      };
+    
+      const saveAndPublish = () => {
+        /// updateQuizField("published", true);
+        const response = client.updateQuiz(quiz._id, { ...quiz, published: true });
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+      };
+    
+      const cancel = () => {
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+      };
+
+
     console.log('questions', questions);
 
     useEffect(() => {
@@ -64,9 +97,9 @@ function QuestionEditor() {
             <hr/>
             <div>
                 <input type="checkbox"/> Notify users that this quiz has changed
-                <button className="btn btn-light"> Cancel </button>
-                <button className="btn btn-light"> Save & Publish</button>
-                <button className="btn btn-light"> Save </button>
+                <button className="btn btn-light" onClick={() => cancel()}> Cancel </button>
+                <button className="btn btn-light" onClick={() => saveAndPublish()}> Save & Publish</button>
+                <button className="btn btn-light" onClick={() => save()}> Save </button>
             </div>
             <hr/>
         </div>
