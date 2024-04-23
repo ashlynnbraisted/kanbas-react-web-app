@@ -30,7 +30,7 @@ const QuizDetailsEditor = () => {
       <div className="d-flex justify-content-end gap-3">
         <text>Points: {quiz.points}</text>
         {quiz.published ? (
-          <div>
+          <div style={{color: "gray"}}>
             <FaRegCheckCircle className="mb-1"/> <text>Published</text>
           </div>
         ) : (

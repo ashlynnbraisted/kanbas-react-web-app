@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as client from "../client";
 import "../index.css";
+import { FaAngleDown, FaBold, FaEllipsisV, FaEyeDropper, FaGripVertical, FaHighlighter, FaItalic, FaKeyboard, FaLine, FaRegKeyboard, FaSpeakerDeck, FaSuperscript, FaUnderline, FaWater } from "react-icons/fa";
+import { FaRadio } from "react-icons/fa6";
 
 const DetailsEditor = () => {
   const [quiz, setQuiz] = useState<any>({});
@@ -54,7 +56,36 @@ const DetailsEditor = () => {
         ></input>
         <br/>
         Quiz Instructions:
-        <br/>
+        <div style={{ display: "flex", marginTop: 15 }}>
+                    <span style={{ display: "inline-block", marginBottom: "10px" }}>
+                    <text style={{marginLeft: 20}}>Edit</text>
+                    <text style={{marginLeft: 20}}>View</text>
+                    <text style={{marginLeft: 20}}>Insert</text>
+                    <text style={{marginLeft: 20}}>Format</text>
+                    <text style={{marginLeft: 20}}>Tools</text>
+                    <text style={{marginLeft: 20}}>Table</text>
+                    </span>
+                </div>
+                <div style={{ display: "flex", marginBottom: "10px" }}>
+                    <span style={{ display: "inline-block" }}>
+                    <text style={{marginLeft: 20}}>12pt</text>
+                    <FaAngleDown />
+                    <text style={{marginLeft: 20}}>Paragraph</text>
+                    <FaAngleDown />
+                    <text style={{marginLeft: 20, color: "lightgray"}}>|</text>
+                    <FaBold style={{marginLeft: 20}}/>
+                    <FaItalic style={{marginLeft: 20}}/>
+                    <FaUnderline style={{marginLeft: 20}}/>
+                    <FaEyeDropper style={{marginLeft: 20}}/>
+                    <FaAngleDown/>
+                    <FaHighlighter style={{marginLeft: 20}}/>
+                    <FaAngleDown/>
+                    <FaSuperscript style={{marginLeft: 20}}/>
+                    <FaAngleDown/>
+                    <text style={{marginLeft: 20, color: "lightgray"}}>|</text>
+                    <FaEllipsisV  style={{marginLeft: 20}}/>
+                    </span>
+                </div>
       <textarea
           value={quiz.description}
           onChange={(event) =>
@@ -63,7 +94,19 @@ const DetailsEditor = () => {
           style={{ width: "100%" }}
           className="form"
         ></textarea>
-        <table style={{alignItems: "left", marginBottom: "30px"}}>
+        <div className="d-flex justify-content-between">
+          p
+        <div className="d-flex justify-content-end gap-3" style={{color: "red"}}>
+          <FaRegKeyboard className="mt-1"/>
+          <text style={{marginLeft: 5, color: "lightgray"}}>|</text>
+          <text style={{marginLeft: 5}}>0 Words</text>
+          <text style={{marginLeft: 5, color: "lightgray"}}>|</text>
+          <text style={{marginLeft: 5}}>{'</>'}</text>
+          <text style={{marginLeft: 5, color: "lightgray"}}>|</text>
+          <FaGripVertical className="mt-1"/>
+        </div>
+        </div>
+        <table style={{alignItems: "left", marginBottom: "30px", marginTop: "20px"}}>
     <tbody>
       <tr>
         <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Quiz Type</td>
