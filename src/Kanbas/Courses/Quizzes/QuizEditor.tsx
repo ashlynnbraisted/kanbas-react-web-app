@@ -55,7 +55,7 @@ function QuestionEditor() {
                 </ul>
                 ))}
             </div>
-            <div style={{marginLeft: 70}}>
+            <div style={{marginLeft: 70, marginTop: 10}}>
                 <button style={{marginRight: 10}} className="btn btn-light" onClick={() => navigate(`/Kanbas/Courses/${courseId}/Quizzes/Question/${quizId}/0`)}><FontAwesomeIcon icon={faPlus} /> New Question </button>
                 <button style={{marginRight: 10}} className="btn btn-light"> <FontAwesomeIcon icon={faPlus} /> New Question Group </button>
                 <button style={{marginRight: 10}} className="btn btn-light"> <FontAwesomeIcon icon={faMagnifyingGlass} /> Find Questions </button>
