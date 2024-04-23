@@ -76,8 +76,8 @@ const Quizzes = () => {
     const buttonRef = buttonRefs.current[index];
     if (buttonRef) {
       const rect = buttonRef.getBoundingClientRect();
-      const xPos = rect.x;
-      const yPos = rect.y;
+      const xPos = rect.x + window.scrollX;
+      const yPos = rect.y + window.scrollY;
       return [xPos, yPos];
     } else {
       console.error("Button ref not found for index:", index); // Handle potential error
@@ -121,8 +121,12 @@ const Quizzes = () => {
             {quizzes.length > 0 &&
               quizzes.map((quiz: any, index: number) => (
                 <li key={quiz.id} className="list-group-item">
-                  
-                  <Link to={`/Kanbas/Courses/${courseId}/Quizzes/details/${quiz.id}`}>{quiz.title}</Link> {getAvailability(quiz)}
+                  <Link
+                    to={`/Kanbas/Courses/${courseId}/Quizzes/details/${quiz.id}`}
+                  >
+                    {quiz.title}
+                  </Link>{" "}
+                  {getAvailability(quiz)}
                   {"Due: " + quiz.untilDate}
                   {quiz.points} {quiz.numberQuestions + " questions"}{" "}
                   {quiz.published ? "OPEN SYMBOL" : "CLOSED SYMBOL"}
