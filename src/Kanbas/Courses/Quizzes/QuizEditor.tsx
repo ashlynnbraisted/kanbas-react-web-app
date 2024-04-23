@@ -1,14 +1,17 @@
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getAllQuizByQuizId } from "./client";
 import { useEffect, useState } from "react";
+import "./index.css";
+import { FaEdit, FaGripVertical, FaRegEdit, FaRegTrashAlt, FaTrash } from "react-icons/fa";
 
 
 function QuestionEditor() {
     const { courseId, quizId } = useParams();
     const [questions, setQuestions] = useState([]);
     console.log('questions', questions);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAllQuizByQuizId(quizId).then(fetchedQuestions => {
@@ -22,53 +25,41 @@ function QuestionEditor() {
     };
 
     const handleUpdateQuestion = (questionId: any) => {
-        console.log("questionId", questionId)
+        navigate(`/Kanbas/Courses/${courseId}/Quizzes/Question/${quizId}/${questionId}`);
     };
 
     return (
         <div>
             <div>
                 {questions.map((question: any, index: number) => (
-                <div key={index}>
-                    <div>
-                    <Link
-                  to={`/Kanbas/Courses/${courseId}/Quizzes/Question/${quizId}/${question._id}`}>
-                <button className="btn btn-light" onClick={() => handleUpdateQuestion(question._id)}> Update</button> </Link>
-                        <button className="btn btn-light" onClick={() => handleRemoveQuestion(index)}> Delete </button>
-                    </div> 
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>{question.title}</div>
-                        <div>{question.points}</div>
-                    </div>
-                    <div>
-                        <div>{question.question}</div>
-                    </div>
-                    <div>
-                        <ul>
-                            <li>{question.answer}</li>
+                <ul className="list-group wd-quiz" key={index}>
+                    <li>
+                        <div className="title d-flex justify-content-between">
+                        <div>
+                            <FaGripVertical className="m-2 mt-0 mb-1"/><text>{question.title}</text></div>
+                        <div className="me-3">{question.points} pts</div>
+                        </div>
+                        <div className="question">{question.question}</div>
+                        <ul className="answers">
+                            <text>Answer Options:</text>
+                            <li className="answer">{question.answer}</li>
                             {question.options.map((option: string, optionIndex: number) => (
                                 <li key={optionIndex}>{option}</li>
                             ))}
                         </ul>
-                    </div>
-                </div>
+                    <div className="d-flex justify-content-end gap-1 me-3 mb-3">
+                        <FaRegEdit onClick={() => handleUpdateQuestion(question._id)}/>
+                        <FaRegTrashAlt onClick={() => handleRemoveQuestion(index)}/>
+                    </div> 
+                    </li>
+                </ul>
                 ))}
             </div>
-            <div>
-                <Link
-                    to={`/Kanbas/Courses/${courseId}/Quizzes/Question/${quizId}/0`}>
-                <FontAwesomeIcon icon={faPlus} /> New Question </Link>
-                <button className="btn btn-light"> <FontAwesomeIcon icon={faPlus} /> New Question Group </button>
-                <button className="btn btn-light"> <FontAwesomeIcon icon={faMagnifyingGlass} /> Find Questions </button>
+            <div style={{marginLeft: 70}}>
+                <button style={{marginRight: 10}} className="btn btn-light" onClick={() => navigate(`/Kanbas/Courses/${courseId}/Quizzes/Question/${quizId}/0`)}><FontAwesomeIcon icon={faPlus} /> New Question </button>
+                <button style={{marginRight: 10}} className="btn btn-light"> <FontAwesomeIcon icon={faPlus} /> New Question Group </button>
+                <button style={{marginRight: 10}} className="btn btn-light"> <FontAwesomeIcon icon={faMagnifyingGlass} /> Find Questions </button>
             </div>
-            <hr/>
-            <div>
-                <input type="checkbox"/> Notify users that this quiz has changed
-                <button className="btn btn-light"> Cancel </button>
-                <button className="btn btn-light"> Save & Publish</button>
-                <button className="btn btn-light"> Save </button>
-            </div>
-            <hr/>
         </div>
     );
 }

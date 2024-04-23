@@ -56,3 +56,40 @@
     margin-bottom: 10px;
     border: 1px solid lightgray;
 }
+
+.wd-quiz {
+    border: 1px solid lightgray;
+    margin: 10px;
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+.wd-quiz .title {
+    background-color: whitesmoke;
+    border: 1px solid whitesmoke !important;
+    border-left: none !important;
+    padding: 2px;
+    font-weight: bold;
+    font-size: 16px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.wd-quiz .question {
+ margin-left: 20px;   
+ font-size: 16px;
+ margin-bottom: 5px;
+}
+
+.wd-quiz .answers {
+    margin-left: 20px;
+    list-style:none;
+    font-size: 14px;
+}
+
+.wd-quiz .answer {
+    font-weight: bold;
+}

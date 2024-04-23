@@ -13,7 +13,24 @@ const QuizDetailsEditor = () => {
     setActiveTab(tab);
   };
 
-  const { quizId } = useParams();
+  const navigate = useNavigate();
+
+  const save = () => {
+    const response = client.updateQuiz(quiz._id, quiz);
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes/details/${quizId}`);
+  };
+
+  const saveAndPublish = () => {
+    /// updateQuizField("published", true);
+    const response = client.updateQuiz(quiz._id, { ...quiz, published: true });
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
+
+  const cancel = () => {
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
+
+  const { quizId, courseId } = useParams();
   const [quiz, setQuiz] = useState<any>({});
 
   useEffect(() => {
@@ -77,6 +94,16 @@ const QuizDetailsEditor = () => {
         {activeTab === "DetailsEditor" && <DetailsEditor />}
         {activeTab === "QuestionsEditor" && <QuestionEditor />}
       </div>
+      <hr/>
+        <div className="d-flex justify-content-between">
+            <span><input type="checkbox"/> Notify users that this quiz has changed</span>
+            <div className="d-flex justify-content-end gap-3">
+            <button className="btn btn-light color-lightgray" onClick={() => cancel()}>Cancel</button>
+            <button className="btn btn-light color-lightgray" onClick={() => saveAndPublish()}>Save and Publish</button>
+            <button className="btn btn-danger" onClick={() => save()}>Save</button>
+            </div>
+        </div>
+        <hr/>
     </div>
   );
 };
