@@ -40,16 +40,16 @@ const QuizDetails = () => {
     <div>
       <div className="d-flex justify-content-end gap-2">
       {quiz.published ?
-        <button
-          className="btn btn-success"
-          onClick={togglePublish}
-        >  <FaCheckCircle className="me-2 mb-1"/>
-          Publish
-          </button> : <button
+         <button
           className="btn btn-danger"
           onClick={togglePublish}>
-          <FaTimesCircle className="me-2 mb-1"/>
+          <FaTimesCircle className="me-3 mb-1"/>
           Unpublish
+          </button> : <button
+          className="btn btn-success"
+          onClick={togglePublish}
+        >  <FaCheckCircle className="me-3 mb-1"/>
+          Publish
           </button>}
         
         <button className="btn btn-light color-lightgray" onClick={() => gotoPreview()}> Preview </button>
@@ -57,7 +57,7 @@ const QuizDetails = () => {
           className="btn btn-light color-lightgray"
           onClick={() => gotoEdit()}
         >
-          <FaPencilAlt className="me-2 mb-1"/>
+          <FaPencilAlt className="me-3 mb-1"/>
           Edit
         </button>
       </div>

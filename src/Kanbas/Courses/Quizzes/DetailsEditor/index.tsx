@@ -4,8 +4,10 @@ import QuestionEditor from "../QuizEditor";
 import { FaBan, FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router";
 import * as client from "../client";
+import { useLocation } from 'react-router-dom';
 
 const QuizDetailsEditor = () => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("DetailsEditor");
 
   const handleTabClick = (tab: any, event: any) => {
@@ -40,6 +42,14 @@ const QuizDetailsEditor = () => {
     };
     getQuiz();
 
+  }, []);
+
+  useEffect(() => {
+    // Check if the navigation condition is met
+    const fromQuestionEditor = location.state?.fromQuestionEditor;;
+    if (fromQuestionEditor) {
+      setActiveTab("QuestionsEditor");
+    }
   }, []);
   
   return (

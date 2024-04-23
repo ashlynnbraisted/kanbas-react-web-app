@@ -50,7 +50,7 @@
     color: black;
 }
 
-.wd-details-editor .form {
+.form {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -59,6 +59,7 @@
 
 .wd-quiz {
     border: 1px solid lightgray;
+    border-radius: 5px;
     margin: 10px;
     list-style: none;
     margin-bottom: 15px;
@@ -67,6 +68,7 @@
 .wd-quiz .title {
     background-color: whitesmoke;
     border: 1px solid whitesmoke !important;
+    border-radius: 5px;
     border-left: none !important;
     padding: 2px;
     font-weight: bold;
@@ -92,4 +94,12 @@
 
 .wd-quiz .answer {
     font-weight: bold;
+}
+
+.wd-question-editor {
+    border: 1px solid lightgray;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 20px;
 }
