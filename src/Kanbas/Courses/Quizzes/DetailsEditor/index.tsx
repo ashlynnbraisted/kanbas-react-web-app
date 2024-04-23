@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import DetailsEditor from "./DetailsEditor";
+import QuestionEditor from "../QuizEditor";
 
 const QuizDetailsEditor = () => {
   const [activeTab, setActiveTab] = useState("DetailsEditor");
@@ -46,7 +47,7 @@ const QuizDetailsEditor = () => {
       <div className="tab-content">
         {" "}
         {activeTab === "DetailsEditor" && <DetailsEditor />}
-        {activeTab === "QuestionsEditor" && <p>Questions Editor</p>}
+        {activeTab === "QuestionsEditor" && <QuestionEditor />}
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ import NavigationDropdown from "./NavigationDropdown";
 import CourseNavigationDropdown from "./CourseNavigationDropdown";
 import QuizDetails from "./Quizzes/Details";
 import QuizDetailsEditor from "./Quizzes/DetailsEditor";
-import Preview from "./Quizzes/preview";
+import Preview from "./Quizzes/Preview";
 import QuizEditor from "./Quizzes/QuizEditor";
 import QuestionEditor from "./Quizzes/QuestionEditor";
 
