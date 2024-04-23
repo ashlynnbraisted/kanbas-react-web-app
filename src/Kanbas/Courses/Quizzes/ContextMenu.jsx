@@ -5,6 +5,16 @@ import { useNavigate } from "react-router-dom";
 const ContextMenu = (props) => {
   const { xPos, yPos, quizId, quiz_Id, courseId } = props;
 
+  const [quiz, setQuiz] = useState({});
+
+  useEffect(() => {
+    const getQuiz = async () => {
+      const quiz = await client.getQuizById(quizId);
+      setQuiz(quiz);
+    };
+    getQuiz();
+  }, []);
+
   const navigate = useNavigate();
 
   const gotoEdit = () => {
@@ -25,7 +35,7 @@ const ContextMenu = (props) => {
   const unpublishQuiz = async () => {
     const response = await client.unpublishQuiz(quiz_Id);
     window.location.reload();
-  }
+  };
 
   return (
     <div style={{ position: "absolute", left: `${xPos}px`, top: `${yPos}px` }}>
@@ -33,7 +43,11 @@ const ContextMenu = (props) => {
       <br />
       <button onClick={deleteQuiz}>Delete</button>
       <br />
-      <button onClick={publishQuiz}>Publish</button>
+      {quiz.published ? (
+        <button onClick={unpublishQuiz}>Unpublish</button>
+      ) : (
+        <button onClick={publishQuiz}>Publish</button>
+      )}
     </div>
   );
 };
