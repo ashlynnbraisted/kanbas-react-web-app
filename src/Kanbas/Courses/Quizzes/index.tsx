@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV, FaRocket, FaRocketchat, FaSlash, FaStopCircle } from "react-icons/fa";
+import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV, FaRocket } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import ContextMenu from "./ContextMenu";
@@ -73,7 +73,7 @@ const Quizzes = () => {
 
     // Compare dates, taking timezones into consideration
     if (currentDate.getTime() < parsedAvailableDate.getTime()) {
-      return <text className="subtitle"> Not available until <span style={{fontWeight: "normal"}}>{parsedAvailableDate.toDateString()}</span></text>;
+      return <text className="subtitle"> Not available until <span style={{fontWeight: "normal"}}>{parsedAvailableDate.toDateString()  + " at " + new Date(parsedAvailableDate).toLocaleTimeString()}</span></text>;
     } else if (currentDate.getTime() > parsedUntilDate.getTime()) {
       return <text className="subtitle">"Closed"</text>;
     } else {
@@ -134,7 +134,7 @@ const Quizzes = () => {
                   </Link>
                   <br/>
                   {getAvailability(quiz)} | 
-                  <text className="subtitle"> Due </text><span style={{color: "gray"}}>{new Date(quiz.untilDate).toDateString()} | 
+                  <text className="subtitle"> Due </text><span style={{color: "gray"}}>{new Date(quiz.untilDate).toDateString()  + " at " + new Date(quiz.untilDate).toLocaleTimeString()} | 
                   {" " + quiz.points} pts | 
                   {" " + quiz.numberQuestions + " questions"}
                   </span>
