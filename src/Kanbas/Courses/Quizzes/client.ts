@@ -78,6 +78,7 @@ export const createQuestion = async (question : any) => {
   }
 
   export const deleteQuestion = async (question: any) => {
+    console.log('delete')
     const response = await api.delete(
       `${QUESTIONS_API}/${question._id}`);
     return response.data;

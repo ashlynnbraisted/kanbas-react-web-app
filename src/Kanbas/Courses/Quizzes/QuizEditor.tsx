@@ -16,6 +16,8 @@ import {
 function QuestionEditor() {
   const { courseId, quizId } = useParams();
   const [questions, setQuestions] = useState([]);
+  const [quiz, setQuiz] = useState<any>({});
+  const [deleteQuestions, setDeleteQuestions] = useState<any>([])
 
   const navigate = useNavigate();
 
@@ -25,11 +27,21 @@ function QuestionEditor() {
     });
   }, [quizId]);
 
+  useEffect(() => {
+    const getQuiz = async () => {
+      const quiz = await client.getQuizById(quizId!);
+      setQuiz(quiz);
+    };
+    getQuiz();
+  }, []);
+
   const handleRemoveQuestion = (index: number, question: any) => {
     const updatedQuestions = questions.filter(
       (_, questionIndex) => questionIndex !== index
     );
-    deleteQuestion(question)
+    console.log(deleteQuestions);
+    console.log(question);
+    setDeleteQuestions([...deleteQuestions, question]);
     setQuestions(updatedQuestions);
   };
 
@@ -38,6 +50,30 @@ function QuestionEditor() {
       `/Kanbas/Courses/${courseId}/Quizzes/Question/${quizId}/${questionId}`
     );
   };
+
+  const save = () => {
+    console.log('delete Questions', deleteQuestions)
+    deleteQuestions.forEach((question: any)  => {
+        client.deleteQuestion(question);
+    });
+    const response = client.updateQuiz(quiz._id, quiz);
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes/details/${quizId}`);
+  };
+
+  const saveAndPublish = () => {
+    /// updateQuizField("published", true);
+    const response = client.updateQuiz(quiz._id, { ...quiz, published: true });
+    
+    deleteQuestions.forEach((question: any) => {
+        deleteQuestion(question);
+    });
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
+
+  const cancel = () => {
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
+
 
   return (
     <div>
@@ -86,6 +122,28 @@ function QuestionEditor() {
           {" "}
           <FontAwesomeIcon icon={faMagnifyingGlass} /> Find Questions{" "}
         </button>
+      </div>
+      <div className="d-flex justify-content-between">
+        <span>
+          <input type="checkbox" /> Notify users that this quiz has changed
+        </span>
+        <div className="d-flex justify-content-end gap-3">
+          <button
+            className="btn btn-light color-lightgray"
+            onClick={() => cancel()}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn-light color-lightgray"
+            onClick={() => saveAndPublish()}
+          >
+            Save and Publish
+          </button>
+          <button className="btn btn-danger" onClick={() => save()}>
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );
