@@ -76,3 +76,9 @@ export const createQuestion = async (question : any) => {
     const response = await axios.get(`${QUESTIONS_API}/${quizId}`);
     return response.data;
   }
+
+  export const deleteQuestion = async (question: any) => {
+    const response = await api.delete(
+      `${QUESTIONS_API}/${question._id}`);
+    return response.data;
+};  

@@ -1,7 +1,7 @@
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getAllQuizByQuizId } from "./client";
+import { deleteQuestion, getAllQuizByQuizId } from "./client";
 import { useEffect, useState } from "react";
 import * as client from "./client";
 import "./index.css";
@@ -25,10 +25,11 @@ function QuestionEditor() {
     });
   }, [quizId]);
 
-  const handleRemoveQuestion = (index: number) => {
+  const handleRemoveQuestion = (index: number, question: any) => {
     const updatedQuestions = questions.filter(
       (_, questionIndex) => questionIndex !== index
     );
+    deleteQuestion(question)
     setQuestions(updatedQuestions);
   };
 
@@ -61,7 +62,7 @@ function QuestionEditor() {
               </ul>
               <div className="d-flex justify-content-end gap-1 me-3 mb-3">
                 <FaRegEdit onClick={() => handleUpdateQuestion(question._id)} />
-                <FaRegTrashAlt onClick={() => handleRemoveQuestion(index)} />
+                <FaRegTrashAlt onClick={() => handleRemoveQuestion(index, question)} />
               </div>
             </li>
           </ul>

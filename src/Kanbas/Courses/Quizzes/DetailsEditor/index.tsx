@@ -36,6 +36,7 @@ const QuizDetailsEditor = () => {
       [field]: newVal,
     });
   };
+  
   const navigate = useNavigate();
 
   const save = () => {
@@ -46,6 +47,7 @@ const QuizDetailsEditor = () => {
   const saveAndPublish = () => {
     /// updateQuizField("published", true);
     const response = client.updateQuiz(quiz._id, { ...quiz, published: true });
+
     navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
   };
 
@@ -118,7 +120,7 @@ const QuizDetailsEditor = () => {
         {activeTab === "DetailsEditor" && (
           <DetailsEditor updateQuizField={updateQuizField} quiz={quiz} />
         )}
-        {activeTab === "QuestionsEditor" && <QuestionEditor />}
+        {activeTab === "QuestionsEditor" && <QuestionEditor/>}
       </div>
       <hr />
       <div className="d-flex justify-content-between">
