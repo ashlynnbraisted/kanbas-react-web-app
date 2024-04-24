@@ -39,14 +39,14 @@ const ContextMenu = (props) => {
 
   return (
     <div style={{ position: "absolute", left: `${xPos}px`, top: `${yPos}px` }}>
-      <button onClick={() => gotoEdit()}>Edit</button>
+      <button className="btn btn-light" style={{width: '100px'}} onClick={() => gotoEdit()}>Edit</button>
       <br />
-      <button onClick={deleteQuiz}>Delete</button>
+      <button className="btn btn-light" style={{width: '100px'}} onClick={deleteQuiz}>Delete</button>
       <br />
       {quiz.published ? (
-        <button onClick={unpublishQuiz}>Unpublish</button>
+        <button className="btn btn-light" style={{width: '100px'}} onClick={unpublishQuiz}>Unpublish</button>
       ) : (
-        <button onClick={publishQuiz}>Publish</button>
+        <button className="btn btn-light" style={{width: '100px'}} onClick={publishQuiz}>Publish</button>
       )}
     </div>
   );

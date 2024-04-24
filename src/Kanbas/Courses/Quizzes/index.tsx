@@ -1,11 +1,14 @@
 // @ts-nocheck
-import { FaCheckCircle, FaEllipsisV, FaPlusCircle } from "react-icons/fa";
+import { FaBan, FaCaretDown, FaCheckCircle, FaEllipsisV, FaRocket, } from "react-icons/fa";
+
 import { Link, useParams } from "react-router-dom";
 import { assignments } from "../../Database";
 import { useEffect, useState, useRef } from "react";
 import ContextMenu from "./ContextMenu";
 import * as client from "./client";
 import { useNavigate } from "react-router-dom";
+import "./index.css";
+
 
 const Quizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -25,6 +28,15 @@ const Quizzes = () => {
   const [yPos, setYPos] = useState(0);
   const [quizId, setQuizId] = useState("");
   const [quiz_Id, setQuiz_Id] = useState("");
+
+  const togglePublish = async (id, published) => {
+    if (published) {
+      await client.unpublishQuiz(id);
+    } else {
+      await client.publishQuiz(id);
+    }
+    window.location.reload();
+  };
 
   useEffect(() => {
     buttonRefs.current = buttonRefs.current.slice(0, quizzes.length);
@@ -64,11 +76,11 @@ const Quizzes = () => {
 
     // Compare dates, taking timezones into consideration
     if (currentDate.getTime() < parsedAvailableDate.getTime()) {
-      return "Not available until" + parsedAvailableDate;
+      return <text className="subtitle"> Not available until <span style={{fontWeight: "normal"}}>{parsedAvailableDate.toDateString()  + " at " + new Date(parsedAvailableDate).toLocaleTimeString()}</span></text>;
     } else if (currentDate.getTime() > parsedUntilDate.getTime()) {
-      return "Closed";
+      return <text className="subtitle">Closed"</text>;
     } else {
-      return "Available";
+      return <text className="subtitle">Available</text>;
     }
   };
 
@@ -87,11 +99,11 @@ const Quizzes = () => {
   const showMenu = (index, quizId, quiz_Id) => {
     const [x, y] = getButtonPosition(index);
 
-    setXPos(x - 270);
-    setYPos(y - 250);
+    setXPos(x);
+    setYPos(y);
     setQuizId(quizId);
     setQuiz_Id(quiz_Id);
-    setContextMenuVisible(true);
+    setContextMenuVisible(!contextMenuVisible);
   };
 
   const addQuiz = async () => {
@@ -107,37 +119,41 @@ const Quizzes = () => {
           + Quiz{" "}
         </button>
       </div>
-      <ul className="list-group wd-modules">
-        <li className="list-group-item">
-          <div>
-            <FaEllipsisV className="me-2" /> QUIZZES
-            <span className="float-end">
-              <FaCheckCircle className="text-success" />
-              <FaPlusCircle className="ms-2" />
-              <FaEllipsisV className="ms-2" />
-            </span>
-          </div>
+      <ul className="list-group wd-quizzes">
+        <li>
+          <ul className="title">
+            <FaCaretDown className="ms-2" />
+              Quizzes
+          </ul>
           <ul className="list-group">
             {quizzes.length > 0 &&
               quizzes.map((quiz: any, index: number) => (
-                <li key={quiz.id} className="list-group-item">
-                  <Link
-                    to={`/Kanbas/Courses/${courseId}/Quizzes/details/${quiz.id}`}
-                  >
-                    {quiz.title}
-                  </Link>{" "}
-                  {getAvailability(quiz)}
-                  {"Due: " + quiz.untilDate}
-                  {quiz.points} {quiz.numberQuestions + " questions"}{" "}
-                  {quiz.published ? "OPEN SYMBOL" : "CLOSED SYMBOL"}
-                  <button
-                    onClick={() => showMenu(index, quiz.id, quiz._id)}
+                <li key={quiz.id} className="list-group-item quiz">
+                <div className="d-flex">
+                <FaRocket className="me-3 mt-3 text-success" size="15"/>
+                <div>
+                <Link className="quiz-title" to={`/Kanbas/Courses/${courseId}/Quizzes/details/${quiz.id}`}>
+                {quiz.title} 
+                </Link>
+                <br/>
+                {getAvailability(quiz)} | 
+                <text className="subtitle"> Due </text><span style={{color: "gray"}}>{new Date(quiz.untilDate).toDateString()  + " at " + new Date(quiz.untilDate).toLocaleTimeString()} | 
+                {" " + quiz.points} pts | 
+                {" " + quiz.numberQuestions + " questions"}
+                </span>
+                </div>
+                </div>
+                <div className="float-end">
+                {quiz.published ? <FaCheckCircle className="text-success" size="20" onClick={() => togglePublish(quiz._id, quiz.published)}/> : <FaBan size="20" onClick={() => togglePublish(quiz._id, quiz.published)}/>}
+                <span
                     ref={(el) => {
                       buttonRefs.current[index] = el;
                     }}
+                    onClick={() => showMenu(index, quiz.id, quiz._id)}
                   >
                     <FaEllipsisV className="ms-2" />
-                  </button>
+                    </span>
+                  </div>
                 </li>
               ))}
             {contextMenuVisible && (

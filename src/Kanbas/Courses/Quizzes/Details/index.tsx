@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as client from "../client";
+import { FaCheckCircle, FaEdit, FaPencilAlt, FaTimesCircle } from "react-icons/fa";
 
 const QuizDetails = () => {
   const [quiz, setQuiz] = useState<any>({});
@@ -38,37 +39,96 @@ const QuizDetails = () => {
   return (
     <div>
       <div className="d-flex justify-content-end gap-2">
+      {quiz.published ?
         <button
-          className="btn btn-light color-lightgray"
+          className="btn btn-danger"
+          onClick={togglePublish}>
+          <FaTimesCircle className="me-3 mb-1"/>
+          Unpublish
+          </button> : <button
+          className="btn btn-success"
           onClick={togglePublish}
-        >
-          {" "}
-          {quiz.published ? "Unpublish" : "Publish"}{" "}
-        </button>
+        >  <FaCheckCircle className="me-3 mb-1"/>
+          Publish
+          </button>}
+        
         <button className="btn btn-light color-lightgray" onClick={() => gotoPreview()}> Preview </button>
         <button
           className="btn btn-light color-lightgray"
           onClick={() => gotoEdit()}
         >
-          {" "}
-          Edit{" "}
+          <FaPencilAlt className="me-3 mb-1"/>
+          Edit
         </button>
       </div>
-      <h1>Quiz Details</h1>
-      <p>Quiz Type: {quiz.quizType}</p>
-      <p>points: {quiz.points}</p>
-      <p>Assignment Group: {quiz.assignmentGroup}</p>
-      <p>Shuffle answers: {quiz.shuffleAnswers}</p>
-      <p>Time Limit: {quiz.timeLimit} minutes</p>
-      <p>Multiple attemps: {quiz.multipleAttempts}</p>
-      <p>Show correct answers: {quiz.showCorrectAnswers}</p>
-      <p>Access Code: {quiz.accessCode}</p>
-      <p>One Question at a Time: {quiz.oneQuestionAtATime}</p>
-      <p>Webcam required: {quiz.webcamRequired}</p>
-      <p>Lock Questions after answering: {quiz.lockQuestionsAfterAnswering}</p>
-      <p>Due Date: {quiz.dueDate}</p>
-      <p>Available Date: {quiz.availableDate}</p>
-      <p>until Date: {quiz.untilDate}</p>
+      <hr/>
+      <div style={{fontSize: "35px", fontWeight:"550", marginBottom:"10px"}}>{quiz.title}</div>
+  <table style={{alignItems: "left", marginBottom: "30px"}}>
+    <tbody>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Quiz Type:</td>
+        <td style={{ textAlign: "left" }}>{quiz.quizType}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Points:</td>
+        <td style={{ textAlign: "left" }}>{quiz.points}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Assignment Group:</td>
+        <td style={{ textAlign: "left" }}>{quiz.assignmentGroup}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Shuffle Answers:</td>
+        <td style={{ textAlign: "left" }}>{quiz.shuffleAnswers ? 'Yes' : 'No'}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Time Limit:</td>
+        <td style={{ textAlign: "left" }}>{quiz.timeLimit} minutes</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Multiple Attempts:</td>
+        <td style={{ textAlign: "left" }}>{quiz.multipleAttempts ? 'Yes' : 'No'}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Show Correct Answers:</td>
+        <td style={{ textAlign: "left" }}>{quiz.showCorrectAnswers ? 'Yes' : 'No'}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Access Code:</td>
+        <td style={{ textAlign: "left" }}>{quiz.accessCode}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>One Question at a Time:</td>
+        <td style={{ textAlign: "left" }}>{quiz.oneQuestionAtATime ? 'Yes' : 'No'}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Webcam Required:</td>
+        <td style={{ textAlign: "left" }}>{quiz.webcamRequired ? 'Yes' : 'No'}</td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Lock Questions after Answering:</td>
+        <td style={{ textAlign: "left" }}>{quiz.lockQuestionsAfterAnswering ? 'Yes' : 'No'}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+    <thead>
+      <tr>
+        <th style={{ borderBottom: "1px solid lightgray" }}>Due</th>
+        <th style={{ borderBottom: "1px solid lightgray" }}>Available from</th>
+        <th style={{ borderBottom: "1px solid lightgray" }}>Until</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style={{ borderBottom: "1px solid lightgray", paddingTop: "15px", paddingBottom: "15px"}}>{new Date(quiz.dueDate).toDateString() + " at " + new Date(quiz.dueDate).toLocaleTimeString()}</td>
+        <td style={{ borderBottom: "1px solid lightgray", paddingTop: "15px" , paddingBottom: "15px"}}>{new Date(quiz.availableDate).toDateString()  + " at " + new Date(quiz.availableDate).toLocaleTimeString()}</td>
+        <td style={{ borderBottom: "1px solid lightgray", paddingTop: "15px" , paddingBottom: "15px"}}>{new Date(quiz.untilDate).toDateString()  + " at " + new Date(quiz.untilDate).toLocaleTimeString()}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
     </div>
   );
 };

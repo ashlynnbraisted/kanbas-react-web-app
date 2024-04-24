@@ -2,12 +2,14 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as client from "../client";
+import "../index.css";
+import { FaAngleDown, FaBold, FaEllipsisV, FaEyeDropper, FaGripVertical, FaHighlighter, FaItalic, FaKeyboard, FaLine, FaRegKeyboard, FaSpeakerDeck, FaSuperscript, FaUnderline, FaWater } from "react-icons/fa";
+import { FaRadio } from "react-icons/fa6";
 
 const DetailsEditor = () => {
   const [quiz, setQuiz] = useState<any>({});
-  const { quizId, courseId } = useParams();
+  const { quizId } = useParams();
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getQuiz = async () => {
@@ -20,21 +22,6 @@ const DetailsEditor = () => {
     getQuiz();
   }, []);
 
-  const save = () => {
-    const response = client.updateQuiz(quiz._id, quiz);
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes/details/${quizId}`);
-  };
-
-  const saveAndPublish = () => {
-    /// updateQuizField("published", true);
-    const response = client.updateQuiz(quiz._id, { ...quiz, published: true });
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
-  };
-
-  const cancel = () => {
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
-  };
-
   const updateQuizField = (field: any, newVal: any) => {
     setQuiz({
       ...quiz,
@@ -42,28 +29,74 @@ const DetailsEditor = () => {
     });
   };
   return (
-    <div>
-      <h1>Quiz Details Editor</h1>
-      <p>
-        Quiz Title{" "}
+    <div className="wd-details-editor">
+      <br/>
         <input
+          className="form"
           type="text"
           value={quiz.title}
           onChange={(event) => updateQuizField("title", event.target.value)}
+          style={{ width: "50%" }}
         ></input>
-      </p>
-      <p>
-        Description{" "}
-        <textarea
+        <br/>
+        Quiz Instructions:
+        <div style={{ display: "flex", marginTop: 15 }}>
+                    <span style={{ display: "inline-block", marginBottom: "10px" }}>
+                    <text style={{marginLeft: 20}}>Edit</text>
+                    <text style={{marginLeft: 20}}>View</text>
+                    <text style={{marginLeft: 20}}>Insert</text>
+                    <text style={{marginLeft: 20}}>Format</text>
+                    <text style={{marginLeft: 20}}>Tools</text>
+                    <text style={{marginLeft: 20}}>Table</text>
+                    </span>
+                </div>
+                <div style={{ display: "flex", marginBottom: "10px" }}>
+                    <span style={{ display: "inline-block" }}>
+                    <text style={{marginLeft: 20}}>12pt</text>
+                    <FaAngleDown />
+                    <text style={{marginLeft: 20}}>Paragraph</text>
+                    <FaAngleDown />
+                    <text style={{marginLeft: 20, color: "lightgray"}}>|</text>
+                    <FaBold style={{marginLeft: 20}}/>
+                    <FaItalic style={{marginLeft: 20}}/>
+                    <FaUnderline style={{marginLeft: 20}}/>
+                    <FaEyeDropper style={{marginLeft: 20}}/>
+                    <FaAngleDown/>
+                    <FaHighlighter style={{marginLeft: 20}}/>
+                    <FaAngleDown/>
+                    <FaSuperscript style={{marginLeft: 20}}/>
+                    <FaAngleDown/>
+                    <text style={{marginLeft: 20, color: "lightgray"}}>|</text>
+                    <FaEllipsisV  style={{marginLeft: 20}}/>
+                    </span>
+                </div>
+      <textarea
           value={quiz.description}
           onChange={(event) =>
-            updateQuizField("description", event.target.value)
+            updateQuizField("description", event.target.value) 
           }
+          style={{ width: "100%" }}
+          className="form"
         ></textarea>
-      </p>
-      <p>
-        Quiz Type{" "}
-        <select
+                <div className="d-flex justify-content-between">
+          p
+        <div className="d-flex justify-content-end gap-3" style={{color: "red"}}>
+          <FaRegKeyboard className="mt-1"/>
+          <text style={{marginLeft: 5, color: "lightgray"}}>|</text>
+          <text style={{marginLeft: 5}}>0 Words</text>
+          <text style={{marginLeft: 5, color: "lightgray"}}>|</text>
+          <text style={{marginLeft: 5}}>{'</>'}</text>
+          <text style={{marginLeft: 5, color: "lightgray"}}>|</text>
+          <FaGripVertical className="mt-1"/>
+        </div>
+        </div>
+        <table style={{alignItems: "left", marginBottom: "30px", marginTop: "20px"}}>
+    <tbody>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Quiz Type</td>
+        <td style={{ textAlign: "left" }}>
+          <select
+          className="form"
           value={quiz.quizType}
           onChange={(event) => updateQuizField("quizType", event.target.value)}
         >
@@ -91,19 +124,22 @@ const DetailsEditor = () => {
           >
             Ungraded Survey
           </option>
-        </select>
-      </p>
-      <p>
-        Points{" "}
-        <input
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Points</td>
+        <td style={{ textAlign: "left" }}><input
+        className="form"
           type="number"
           value={quiz.points}
           onChange={(event) => updateQuizField("points", event.target.value)}
-        />
-      </p>
-      <p>
-        Assignment Group{" "}
+        /></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Assignment Group</td>
+        <td style={{ textAlign: "left" }}>
         <select
+        className="form"
           value={quiz.assignmentGroup}
           onChange={(event) =>
             updateQuizField("assignmentGroup", event.target.value)
@@ -113,11 +149,12 @@ const DetailsEditor = () => {
           <option value={"Exams"}>Exams</option>
           <option value={"Assignments"}>Assignments</option>
           <option value={"Project"}>Project</option>
-        </select>
-      </p>
-      <p>
-        Shuffle Answers{" "}
-        <select
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Shuffle Answers</td>
+        <td style={{ textAlign: "left" }}><select
+        className="form"
           value={quiz.shuffleAnswers}
           onChange={(event) =>
             updateQuizField("shuffleAnswers", event.target.value)
@@ -125,19 +162,21 @@ const DetailsEditor = () => {
         >
           <option value={"Yes"}>Yes</option>
           <option value={"No"}>No</option>
-        </select>
-      </p>
-      <p>
-        Time Limit {"(Minutes):"}
-        <input
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Time Limit</td>
+        <td style={{ textAlign: "left" }}><input
+        className="form"
           type="number"
           value={quiz.timeLimit}
           onChange={(event) => updateQuizField("timeLimit", event.target.value)}
-        />
-      </p>
-      <p>
-        Multiple Attempts{" "}
-        <select
+        /></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Multiple Attempts</td>
+        <td style={{ textAlign: "left" }}><select
+        className="form"
           value={quiz.multipleAttempts}
           onChange={(event) =>
             updateQuizField("multipleAttempts", event.target.value)
@@ -145,11 +184,12 @@ const DetailsEditor = () => {
         >
           <option value={"Yes"}>Yes</option>
           <option value={"No"}>No</option>
-        </select>
-      </p>
-      <p>
-        Show Correct Answers{" "}
-        <select
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Show Correct Answers</td>
+        <td style={{ textAlign: "left" }}> <select
+        className="form"
           value={quiz.showCorrectAnswers}
           onChange={(event) =>
             updateQuizField("showCorrectAnswers", event.target.value)
@@ -160,21 +200,23 @@ const DetailsEditor = () => {
             After all attempts are submitted
           </option>
           <option value={"Never"}>Never</option>
-        </select>
-      </p>
-      <p>
-        Acces Code{" "}
-        <input
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Access Code</td>
+        <td style={{ textAlign: "left" }}><input
+        className="form"
           type="text"
           value={quiz.accessCode}
           onChange={(event) =>
             updateQuizField("accessCode", event.target.value)
           }
-        />
-      </p>
-      <p>
-        One question at a time{" "}
-        <select
+        /></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>One Question at a Time</td>
+        <td style={{ textAlign: "left" }}><select
+        className="form"
           value={quiz.oneQuestionAtATime}
           onChange={(event) =>
             updateQuizField("oneQuestionAtATime", event.target.value)
@@ -182,11 +224,12 @@ const DetailsEditor = () => {
         >
           <option value={"Yes"}>Yes</option>
           <option value={"No"}>No</option>
-        </select>
-      </p>
-      <p>
-        Webcam Required{" "}
-        <select
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Webcam Required</td>
+        <td style={{ textAlign: "left" }}><select
+        className="form"
           value={quiz.webcamRequired}
           onChange={(event) =>
             updateQuizField("webcamRequired", event.target.value)
@@ -194,11 +237,12 @@ const DetailsEditor = () => {
         >
           <option value={"Yes"}>Yes</option>
           <option value={"No"}>No</option>
-        </select>
-      </p>
-      <p>
-        Lock Questions After Answering{" "}
-        <select
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Lock Questions after Answering</td>
+        <td style={{ textAlign: "left" }}><select
+        className="form"
           value={quiz.lockQuestionsAfterAnswering}
           onChange={(event) =>
             updateQuizField("lockQuestionsAfterAnswering", event.target.value)
@@ -206,39 +250,42 @@ const DetailsEditor = () => {
         >
           <option value={"Yes"}>Yes</option>
           <option value={"No"}>No</option>
-        </select>
-      </p>
-      <p>
-        Due Date{" "}
-        <input
+        </select></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Due Date</td>
+        <td style={{ textAlign: "left" }}><input
+        className="form"
           type="date"
           value={quiz.dueDate}
           onChange={(event) => updateQuizField("dueDate", event.target.value)}
-        />
-      </p>
-      <p>
-        Available Date{" "}
-        <input
+        /></td>
+      </tr>
+      <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Available Date</td>
+        <td style={{ textAlign: "left" }}><input
+        className="form"
           type="date"
           value={quiz.availableDate}
           onChange={(event) =>
             updateQuizField("availableDate", event.target.value)
           }
-        />
-      </p>
-      <p>
-        Until Date{" "}
-        <input
+        /></td>
+              </tr>
+        <tr>
+        <td style={{ textAlign: "right", paddingRight: "0.5em", fontWeight: "bold" }}>Until Date</td>
+        <td style={{ textAlign: "left" }}><input
+        className="form"
           type="date"
           value={quiz.untilDate}
           onChange={(event) => updateQuizField("untilDate", event.target.value)}
-        />
-      </p>
-      <div>
-        <button onClick={() => save()}>Save</button>
-        <button onClick={() => saveAndPublish()}>Save and Publish</button>
-        <button onClick={() => cancel()}>Cancel</button>
-      </div>
+        /></td>
+
+      </tr>
+    </tbody>
+  </table>
+
+      <hr/>
     </div>
   );
 };
