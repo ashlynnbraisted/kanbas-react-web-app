@@ -16,35 +16,8 @@ import {
 function QuestionEditor() {
   const { courseId, quizId } = useParams();
   const [questions, setQuestions] = useState([]);
-  const [quiz, setQuiz] = useState<any>({});
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getQuiz = async () => {
-      const quiz = await client.getQuizById(quizId!);
-      quiz.dueDate = quiz.dueDate.split("T")[0];
-      quiz.availableDate = quiz.availableDate.split("T")[0];
-      quiz.untilDate = quiz.untilDate.split("T")[0];
-      setQuiz(quiz);
-    };
-    getQuiz();
-  }, []);
-
-  const save = () => {
-    const response = client.updateQuiz(quiz._id, quiz);
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes/details/${quizId}`);
-  };
-
-  const saveAndPublish = () => {
-    /// updateQuizField("published", true);
-    const response = client.updateQuiz(quiz._id, { ...quiz, published: true });
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
-  };
-
-  const cancel = () => {
-    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
-  };
 
   useEffect(() => {
     getAllQuizByQuizId(quizId).then((fetchedQuestions) => {

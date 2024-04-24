@@ -21,9 +21,10 @@ const QuizDetailsEditor = () => {
   useEffect(() => {
     const getQuiz = async () => {
       const quiz = await client.getQuizById(quizId!);
-      quiz.dueDate = quiz.dueDate.split("T")[0];
-      quiz.availableDate = quiz.availableDate.split("T")[0];
-      quiz.untilDate = quiz.untilDate.split("T")[0];
+      // quiz.dueDate = quiz.dueDate.split("T")[0];
+      // quiz.availableDate = quiz.availableDate.split("T")[0];
+      // quiz.untilDate = quiz.untilDate.split("T")[0];
+      // console.log(quiz.availableDate, quiz.dueDate, quiz.untilDate);
       setQuiz(quiz);
     };
     getQuiz();

@@ -23,6 +23,31 @@ import { FaRadio } from "react-icons/fa6";
 
 const DetailsEditor = (props: any) => {
   const { updateQuizField, quiz } = props;
+
+  // useEffect(() => {
+  //   const updateDates = () => {
+  //     if (quiz.dueDate) {
+  //       if (quiz.dueDate.includes("T")) {
+  //         quiz.dueDate = quiz.dueDate.split("T")[0];
+  //       }
+  //     }
+  //     if (quiz.availableDate) {
+  //       if (quiz.availableDate.includes("T")) {
+  //         quiz.availableDate = quiz.availableDate.split("T")[0];
+  //       }
+  //     }
+  //     if (quiz.untilDate) {
+  //       if (quiz.untilDate.includes("T")) {
+  //         quiz.untilDate = quiz.untilDate.split("T")[0];
+  //       }
+  //     }
+  //   };
+  //   updateDates();
+  //   console.log(quiz.dueDate, quiz.availableDate, quiz.untilDate);
+  // }, []);
+
+  // console.log(quiz);
+
   return (
     <div className="wd-details-editor">
       <br />

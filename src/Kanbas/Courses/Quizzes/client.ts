@@ -19,7 +19,12 @@ export const getQuizzesByCourseId = async (courseId: string) => {
 
 export const getQuizById = async (quizId: string) => {
   const response = await api.get( `${BASE_API}/api/quizDetails/quiz/${quizId}` );
-  return response.data[0];
+  const quiz = response.data[0];
+  quiz.dueDate = quiz.dueDate.split("T")[0];
+  quiz.availableDate = quiz.availableDate.split("T")[0];
+  quiz.untilDate = quiz.untilDate.split("T")[0];
+  console.log(quiz.availableDate, quiz.dueDate, quiz.untilDate);
+  return quiz;
 }
 
 export const updateQuiz = async(quiz_id: String, quiz: any) => {
@@ -64,7 +69,6 @@ export const createQuestion = async (question : any) => {
 
   export const findQuestionById = async (questionId : string) => {
     const response = await axios.get(`${QUESTIONS_API}/id/${questionId}`);
-    console.log('data', response.data);
     return response.data;
   }
   
