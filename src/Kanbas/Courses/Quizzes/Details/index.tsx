@@ -127,7 +127,7 @@ const QuizDetails = () => {
               Shuffle Answers:
             </td>
             <td style={{ textAlign: "left" }}>
-              {quiz.shuffleAnswers ? "Yes" : "No"}
+              {quiz.shuffleAnswers}
             </td>
           </tr>
           <tr>
@@ -153,7 +153,7 @@ const QuizDetails = () => {
               Multiple Attempts:
             </td>
             <td style={{ textAlign: "left" }}>
-              {quiz.multipleAttempts ? "Yes" : "No"}
+              {quiz.multipleAttempts}
             </td>
           </tr>
           <tr>
@@ -167,7 +167,7 @@ const QuizDetails = () => {
               Show Correct Answers:
             </td>
             <td style={{ textAlign: "left" }}>
-              {quiz.showCorrectAnswers ? "Yes" : "No"}
+              {quiz.showCorrectAnswers}
             </td>
           </tr>
           <tr>
@@ -193,7 +193,7 @@ const QuizDetails = () => {
               One Question at a Time:
             </td>
             <td style={{ textAlign: "left" }}>
-              {quiz.oneQuestionAtATime ? "Yes" : "No"}
+              {quiz.oneQuestionAtATime}
             </td>
           </tr>
           <tr>
@@ -207,7 +207,7 @@ const QuizDetails = () => {
               Webcam Required:
             </td>
             <td style={{ textAlign: "left" }}>
-              {quiz.webcamRequired ? "Yes" : "No"}
+              {quiz.webcamRequired}
             </td>
           </tr>
           <tr>
@@ -221,7 +221,7 @@ const QuizDetails = () => {
               Lock Questions after Answering:
             </td>
             <td style={{ textAlign: "left" }}>
-              {quiz.lockQuestionsAfterAnswering ? "Yes" : "No"}
+              {quiz.lockQuestionsAfterAnswering}
             </td>
           </tr>
         </tbody>

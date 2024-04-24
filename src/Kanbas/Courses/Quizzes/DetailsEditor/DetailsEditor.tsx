@@ -11,18 +11,47 @@ import {
   FaGripVertical,
   FaHighlighter,
   FaItalic,
-  FaKeyboard,
-  FaLine,
   FaRegKeyboard,
-  FaSpeakerDeck,
   FaSuperscript,
   FaUnderline,
-  FaWater,
 } from "react-icons/fa";
-import { FaRadio } from "react-icons/fa6";
 
-const DetailsEditor = (props: any) => {
-  const { updateQuizField, quiz } = props;
+const DetailsEditor = () => {
+  const [quiz, setQuiz] = useState<any>({});
+  const { quizId, courseId } = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getQuiz = async () => {
+      const quiz = await client.getQuizById(quizId!);
+      setQuiz(quiz);
+    };
+    getQuiz();
+  }, []);
+
+  const save = () => {
+    const response = client.updateQuiz(quiz._id, quiz);
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes/details/${quizId}`);
+  };
+
+  const saveAndPublish = () => {
+    /// updateQuizField("published", true);
+    const response = client.updateQuiz(quiz._id, { ...quiz, published: true });
+
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
+
+  const cancel = () => {
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+  };
+
+  const updateQuizField = (field: any, newVal: any) => {
+    setQuiz({
+      ...quiz,
+      [field]: newVal,
+    });
+  };
 
   // useEffect(() => {
   //   const updateDates = () => {
@@ -459,6 +488,28 @@ const DetailsEditor = (props: any) => {
         </tbody>
       </table>
       <hr />
+      <div className="d-flex justify-content-between">
+        <span>
+          <input type="checkbox" /> Notify users that this quiz has changed
+        </span>
+        <div className="d-flex justify-content-end gap-3">
+          <button
+            className="btn btn-light color-lightgray"
+            onClick={() => cancel()}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn-light color-lightgray"
+            onClick={() => saveAndPublish()}
+          >
+            Save and Publish
+          </button>
+          <button className="btn btn-danger" onClick={() => save()}>
+            Save
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
