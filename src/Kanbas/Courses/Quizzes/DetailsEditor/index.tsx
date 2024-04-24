@@ -4,19 +4,37 @@ import QuestionEditor from "../QuizEditor";
 import { FaBan, FaCheckCircle, FaRegCheckCircle } from "react-icons/fa";
 import { useParams, useNavigate } from "react-router";
 import * as client from "../client";
-import { useLocation } from 'react-router-dom';
-
+import { useLocation } from "react-router-dom";
 
 const QuizDetailsEditor = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("DetailsEditor");
+
+  const [quiz, setQuiz] = useState<any>({});
+  const { quizId, courseId } = useParams();
 
   const handleTabClick = (tab: any, event: any) => {
     event.preventDefault();
     setActiveTab(tab);
   };
 
+  useEffect(() => {
+    const getQuiz = async () => {
+      const quiz = await client.getQuizById(quizId!);
+      quiz.dueDate = quiz.dueDate.split("T")[0];
+      quiz.availableDate = quiz.availableDate.split("T")[0];
+      quiz.untilDate = quiz.untilDate.split("T")[0];
+      setQuiz(quiz);
+    };
+    getQuiz();
+  }, []);
 
+  const updateQuizField = (field: any, newVal: any) => {
+    setQuiz({
+      ...quiz,
+      [field]: newVal,
+    });
+  };
   const navigate = useNavigate();
 
   const save = () => {
@@ -34,42 +52,36 @@ const QuizDetailsEditor = () => {
     navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
   };
 
-  const { quizId, courseId } = useParams();
-  const [quiz, setQuiz] = useState<any>({});
-
   useEffect(() => {
     const getQuiz = async () => {
       const quiz = await client.getQuizById(quizId!);
       setQuiz(quiz);
     };
     getQuiz();
-
   }, []);
 
   useEffect(() => {
     // Check if the navigation condition is met
-    const fromQuestionEditor = location.state?.fromQuestionEditor;;
+    const fromQuestionEditor = location.state?.fromQuestionEditor;
     if (fromQuestionEditor) {
       setActiveTab("QuestionsEditor");
     }
   }, []);
   return (
     <div className="container">
-            <div className="d-flex justify-content-end gap-3">
+      <div className="d-flex justify-content-end gap-3">
         <text>Points: {quiz.points}</text>
         {quiz.published ? (
-          <div style={{color: "gray"}}>
-            <FaRegCheckCircle className="mb-1"/> <text>Published</text>
+          <div style={{ color: "gray" }}>
+            <FaRegCheckCircle className="mb-1" /> <text>Published</text>
           </div>
         ) : (
           <div>
-            <FaBan className="mt-1"/> <text>Not Published</text>
+            <FaBan className="mt-1" /> <text>Not Published</text>
           </div>
         )}
       </div>
-      <hr/>
-      {" "}
-      {/* Add Bootstrap's container class */}
+      <hr /> {/* Add Bootstrap's container class */}
       <ul className="nav nav-tabs" role="tablist">
         <li className="nav-item">
           <a
@@ -102,19 +114,35 @@ const QuizDetailsEditor = () => {
       </ul>
       <div className="tab-content">
         {" "}
-        {activeTab === "DetailsEditor" && <DetailsEditor />}
+        {activeTab === "DetailsEditor" && (
+          <DetailsEditor updateQuizField={updateQuizField} quiz={quiz} />
+        )}
         {activeTab === "QuestionsEditor" && <QuestionEditor />}
       </div>
-      <hr/>
-        <div className="d-flex justify-content-between">
-            <span><input type="checkbox"/> Notify users that this quiz has changed</span>
-            <div className="d-flex justify-content-end gap-3">
-            <button className="btn btn-light color-lightgray" onClick={() => cancel()}>Cancel</button>
-            <button className="btn btn-light color-lightgray" onClick={() => saveAndPublish()}>Save and Publish</button>
-            <button className="btn btn-danger" onClick={() => save()}>Save</button>
-            </div>
+      <hr />
+      <div className="d-flex justify-content-between">
+        <span>
+          <input type="checkbox" /> Notify users that this quiz has changed
+        </span>
+        <div className="d-flex justify-content-end gap-3">
+          <button
+            className="btn btn-light color-lightgray"
+            onClick={() => cancel()}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn-light color-lightgray"
+            onClick={() => saveAndPublish()}
+          >
+            Save and Publish
+          </button>
+          <button className="btn btn-danger" onClick={() => save()}>
+            Save
+          </button>
         </div>
-        <hr/>
+      </div>
+      <hr />
     </div>
   );
 };

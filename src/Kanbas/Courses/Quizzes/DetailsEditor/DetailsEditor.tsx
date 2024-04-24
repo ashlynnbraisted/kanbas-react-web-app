@@ -21,27 +21,8 @@ import {
 } from "react-icons/fa";
 import { FaRadio } from "react-icons/fa6";
 
-const DetailsEditor = () => {
-  const [quiz, setQuiz] = useState<any>({});
-  const { quizId } = useParams();
-
-  useEffect(() => {
-    const getQuiz = async () => {
-      const quiz = await client.getQuizById(quizId!);
-      quiz.dueDate = quiz.dueDate.split("T")[0];
-      quiz.availableDate = quiz.availableDate.split("T")[0];
-      quiz.untilDate = quiz.untilDate.split("T")[0];
-      setQuiz(quiz);
-    };
-    getQuiz();
-  }, []);
-
-  const updateQuizField = (field: any, newVal: any) => {
-    setQuiz({
-      ...quiz,
-      [field]: newVal,
-    });
-  };
+const DetailsEditor = (props: any) => {
+  const { updateQuizField, quiz } = props;
   return (
     <div className="wd-details-editor">
       <br />
